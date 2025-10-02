@@ -6,3 +6,4 @@ export { FoundersSection } from './FoundersSection';
 export { MentorsSection } from './MentorsSection';
 export { FinalCTASection } from './FinalCTASection';
 export { Footer } from './Footer';
+export { ProgrammeTimeline } from './ProgrammeTimeline';
