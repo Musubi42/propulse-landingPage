@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Le Programme | Propulse',
-  description: 'Découvrez le programme de mentorat Propulse : 6 phases pour accompagner les lycéens vers les Grandes Écoles.',
+  description: 'Decouvrez le programme de mentorat Propulse : 6 phases pour accompagner les lyceens vers les Grandes Ecoles.',
 };
 
 export default function ProgrammePage() {
