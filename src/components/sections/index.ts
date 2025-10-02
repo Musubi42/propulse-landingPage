@@ -1,3 +1,4 @@
+export { Header } from './Header';
 export { HeroSection } from './HeroSection';
 export { SocialProofSection } from './SocialProofSection';
 export { StatisticsSection } from './StatisticsSection';

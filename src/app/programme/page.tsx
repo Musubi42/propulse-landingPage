@@ -3,7 +3,6 @@ import { ProgrammeTimeline } from '@/components/sections/ProgrammeTimeline';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 import { programSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
@@ -32,16 +31,7 @@ export default function ProgrammePage() {
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-primary/5 to-secondary/5 py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <FadeIn direction="down">
-            <Link href="/">
-              <Button variant="ghost" className="mb-6 -ml-4">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Retour à l&apos;accueil
-              </Button>
-            </Link>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
+          <FadeIn>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
               Notre méthode d&apos;accompagnement
             </h1>
