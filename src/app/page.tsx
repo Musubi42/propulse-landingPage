@@ -5,6 +5,9 @@ import {
   StatisticsSection,
   SolutionSection,
   FoundersSection,
+  MentorsSection,
+  FinalCTASection,
+  Footer,
 } from '@/components/sections';
 
 export const metadata: Metadata = {
@@ -14,12 +17,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <HeroSection />
-      <SocialProofSection />
-      <StatisticsSection />
-      <SolutionSection />
-      <FoundersSection />
-    </main>
+    <>
+      <main className="min-h-screen">
+        <HeroSection />
+        <SocialProofSection />
+        <StatisticsSection />
+        <SolutionSection />
+        <FoundersSection />
+        <MentorsSection />
+        <FinalCTASection />
+      </main>
+      <Footer />
+    </>
   );
 }
