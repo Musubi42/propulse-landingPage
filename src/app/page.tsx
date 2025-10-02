@@ -1,5 +1,11 @@
 import type { Metadata } from 'next';
-import { HeroSection, SocialProofSection } from '@/components/sections';
+import {
+  HeroSection,
+  SocialProofSection,
+  StatisticsSection,
+  SolutionSection,
+  FoundersSection,
+} from '@/components/sections';
 
 export const metadata: Metadata = {
   title: 'Propulse | Mentorat gratuit pour lycéens vers les Grandes Écoles',
@@ -11,6 +17,9 @@ export default function Home() {
     <main className="min-h-screen">
       <HeroSection />
       <SocialProofSection />
+      <StatisticsSection />
+      <SolutionSection />
+      <FoundersSection />
     </main>
   );
 }
