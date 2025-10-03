@@ -51,8 +51,17 @@ export function HeroSection() {
               </p>
             </FadeIn>
 
+            {/* Fonce Tagline */}
+            <FadeIn direction="up" delay={0.5}>
+              <div className="pt-2">
+                <p className="text-3xl md:text-4xl font-bold italic text-accent">
+                  &ldquo;Fonce, tu en es capable !&rdquo;
+                </p>
+              </div>
+            </FadeIn>
+
             {/* CTA Buttons */}
-            <FadeIn direction="up" delay={0.6}>
+            <FadeIn direction="up" delay={0.7}>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <a
                   href="#"
@@ -69,7 +78,7 @@ export function HeroSection() {
               </div>
             </FadeIn>
 
-            <FadeIn direction="up" delay={0.8}>
+            <FadeIn direction="up" delay={0.9}>
               <div className="pt-4">
                 <a
                   href="#"

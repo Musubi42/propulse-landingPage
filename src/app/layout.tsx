@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Merriweather } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { organizationSchema } from "@/lib/structuredData";
 import { Header } from "@/components/sections";
@@ -66,6 +67,8 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        {/* Vara.js via unpkg CDN with correct MIME type */}
+<script src="https://cdn.jsdelivr.net/npm/vara@1.4.0/lib/vara.min.js" type="text/javascript"></script>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { FadeIn, ScaleIn, Counter, PolymorphDivider } from '@/components/animations';
-import { TrendingDown, MapPin, Users2, GraduationCap } from 'lucide-react';
+import { MapPin, Users2, GraduationCap } from 'lucide-react';
 
 export function StatisticsSection() {
   return (
@@ -30,87 +30,66 @@ export function StatisticsSection() {
             </FadeIn>
           </div>
 
-          {/* Main Statistics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {/* Geographic Inequality */}
+          {/* Main Statistics Grid - 3 Stats per PRD */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
+            {/* Stat 1: Geographic Inequality */}
             <ScaleIn delay={0.3}>
-              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-accent">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-accent/10 rounded-lg">
-                    <MapPin className="w-6 h-6 text-accent" />
+              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="p-4 bg-accent/10 rounded-full">
+                    <MapPin className="w-8 h-8 text-accent" />
                   </div>
-                  <TrendingDown className="w-5 h-5 text-accent" />
                 </div>
-                <div className="text-4xl font-bold text-accent mb-2">
-                  <Counter end={70} suffix="%" duration={2.5} />
+                <div className="text-5xl md:text-6xl font-bold text-accent mb-3">
+                  1/3
                 </div>
-                <p className="text-text-secondary font-semibold mb-2">
-                  des étudiants
+                <p className="text-text-secondary font-semibold mb-3 text-lg">
+                  des élèves de prépa
                 </p>
                 <p className="text-sm text-text-tertiary leading-relaxed">
-                  viennent de <strong>3 académies</strong> seulement (Paris, Versailles, Lyon)
+                  viennent d&apos;<strong>Île-de-France</strong>
+                  <br />
+                  <span className="text-xs">(qui ne représente qu&apos;1/6 de la population)</span>
                 </p>
               </div>
             </ScaleIn>
 
-            {/* Social Inequality */}
+            {/* Stat 2: Social Inequality */}
             <ScaleIn delay={0.4}>
-              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-primary">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-primary/10 rounded-lg">
-                    <Users2 className="w-6 h-6 text-primary" />
+              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="p-4 bg-primary/10 rounded-full">
+                    <Users2 className="w-8 h-8 text-primary" />
                   </div>
-                  <TrendingDown className="w-5 h-5 text-primary" />
                 </div>
-                <div className="text-4xl font-bold text-primary mb-2">
-                  <Counter end={8} suffix="%" duration={2.5} />
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3">
+                  7-10×
                 </div>
-                <p className="text-text-secondary font-semibold mb-2">
-                  d&apos;enfants d&apos;ouvriers
+                <p className="text-text-secondary font-semibold mb-3 text-lg">
+                  moins de chances
                 </p>
                 <p className="text-sm text-text-tertiary leading-relaxed">
-                  dans les Grandes Écoles, contre <strong>54% de cadres supérieurs</strong>
+                  pour un <strong>enfant d&apos;ouvrier</strong> d&apos;intégrer une Grande École
                 </p>
               </div>
             </ScaleIn>
 
-            {/* Gender Gap */}
+            {/* Stat 3: Self-Censorship */}
             <ScaleIn delay={0.5}>
-              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-secondary">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-secondary/10 rounded-lg">
-                    <GraduationCap className="w-6 h-6 text-secondary" />
-                  </div>
-                  <TrendingDown className="w-5 h-5 text-secondary" />
-                </div>
-                <div className="text-4xl font-bold text-secondary mb-2">
-                  <Counter end={30} suffix="%" duration={2.5} />
-                </div>
-                <p className="text-text-secondary font-semibold mb-2">
-                  de femmes
-                </p>
-                <p className="text-sm text-text-tertiary leading-relaxed">
-                  dans les écoles d&apos;ingénieurs, une <strong>sous-représentation persistante</strong>
-                </p>
-              </div>
-            </ScaleIn>
-
-            {/* Information Gap */}
-            <ScaleIn delay={0.6}>
-              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-accent">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-accent/10 rounded-lg">
-                    <TrendingDown className="w-6 h-6 text-accent" />
+              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="p-4 bg-secondary/10 rounded-full">
+                    <GraduationCap className="w-8 h-8 text-secondary" />
                   </div>
                 </div>
-                <div className="text-4xl font-bold text-accent mb-2">
+                <div className="text-5xl md:text-6xl font-bold text-secondary mb-3">
                   <Counter end={60} suffix="%" duration={2.5} />
                 </div>
-                <p className="text-text-secondary font-semibold mb-2">
-                  manquent d&apos;informations
+                <p className="text-text-secondary font-semibold mb-3 text-lg">
+                  ne se sentent pas capables
                 </p>
                 <p className="text-sm text-text-tertiary leading-relaxed">
-                  sur les voies d&apos;accès et les <strong>possibilités de bourses</strong>
+                  des jeunes de <strong>milieux ruraux défavorisés</strong> d&apos;obtenir une licence
                 </p>
               </div>
             </ScaleIn>

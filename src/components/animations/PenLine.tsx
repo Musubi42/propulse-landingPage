@@ -11,7 +11,7 @@ interface PenLineProps {
   duration?: number;
   delay?: number;
   className?: string;
-  variant?: 'underline' | 'circle' | 'wave' | 'arrow';
+  variant?: 'underline' | 'circle' | 'wave' | 'arrow' | 'horizontal-accent' | 'vertical-connector' | 'stat-reveal' | 'curved-path';
 }
 
 export function PenLine({
@@ -34,6 +34,10 @@ export function PenLine({
     circle: `M ${width / 2} 0 A ${width / 2} ${height / 2} 0 1 1 ${width / 2} ${height}`,
     wave: `M 0 ${height / 2} Q ${width / 4} ${height / 4} ${width / 2} ${height / 2} T ${width} ${height / 2}`,
     arrow: `M 0 ${height / 2} L ${width - 10} ${height / 2} L ${width - 15} ${height / 4} M ${width - 10} ${height / 2} L ${width - 15} ${(3 * height) / 4}`,
+    'horizontal-accent': `M 0 ${height / 2} L ${width} ${height / 2}`,
+    'vertical-connector': `M ${width / 2} 0 L ${width / 2} ${height}`,
+    'stat-reveal': `M 0 ${height / 2} Q ${width / 4} ${height / 4} ${width / 2} ${height / 2} T ${width} ${height / 2}`,
+    'curved-path': `M 0 ${height} Q ${width / 4} 0, ${width / 2} ${height} T ${width} 0`,
   };
 
   return (
