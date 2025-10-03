@@ -1,7 +1,8 @@
 'use client';
 
 import { FadeIn, PenLine, PenDrawnCircle } from '@/components/animations';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, GraduationCap, Users, Building2 } from 'lucide-react';
+import Image from 'next/image';
 
 export function HeroSection() {
   const scrollToNext = () => {
@@ -60,44 +61,37 @@ export function HeroSection() {
               </div>
             </FadeIn>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons - Three Equal Audience Options */}
             <FadeIn direction="up" delay={0.7}>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                {/* Lycéen CTA - Blue */}
                 <a
                   href="#"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  className="group relative inline-flex flex-col items-center justify-center px-6 py-5 bg-[rgb(var(--lyceen-primary))] text-white font-semibold rounded-xl hover:bg-[rgb(var(--lyceen-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"
                 >
-                  Je suis lycéen
+                  <GraduationCap className="w-8 h-8 mb-2" />
+                  <span className="text-lg">Lycéen</span>
+                  <span className="text-sm font-normal opacity-90 mt-1">Je m&apos;inscris</span>
                 </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-                >
-                  Je deviens mentor
-                </a>
-              </div>
-            </FadeIn>
 
-            <FadeIn direction="up" delay={0.9}>
-              <div className="pt-4">
+                {/* Mentor CTA - Orange */}
                 <a
                   href="#"
-                  className="inline-flex items-center text-text-secondary hover:text-foreground transition-colors duration-300 font-medium"
+                  className="group relative inline-flex flex-col items-center justify-center px-6 py-5 bg-[rgb(var(--mentor-primary))] text-white font-semibold rounded-xl hover:bg-[rgb(var(--mentor-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"
                 >
-                  Je suis un lycée
-                  <svg
-                    className="ml-2 w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  <Users className="w-8 h-8 mb-2" />
+                  <span className="text-lg">Mentor</span>
+                  <span className="text-sm font-normal opacity-90 mt-1">Je participe</span>
+                </a>
+
+                {/* Lycée CTA - Green */}
+                <a
+                  href="#"
+                  className="group relative inline-flex flex-col items-center justify-center px-6 py-5 bg-[rgb(var(--lycee-primary))] text-white font-semibold rounded-xl hover:bg-[rgb(var(--lycee-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden sm:col-span-2 lg:col-span-1"
+                >
+                  <Building2 className="w-8 h-8 mb-2" />
+                  <span className="text-lg">Lycée</span>
+                  <span className="text-sm font-normal opacity-90 mt-1">Partenariat</span>
                 </a>
               </div>
             </FadeIn>
@@ -121,17 +115,14 @@ export function HeroSection() {
                   padding={10}
                   className="drop-shadow-2xl"
                 >
-                  <div className="w-full h-full bg-background-secondary flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <p className="text-6xl mb-4">📚</p>
-                      <p className="text-text-secondary font-medium">
-                        Image héros
-                      </p>
-                      <p className="text-sm text-text-tertiary mt-2">
-                        (Photo lycéen/mentor)
-                      </p>
-                    </div>
-                  </div>
+                  <Image
+                    src="/images/placeholders/hero.jpg"
+                    alt="Mentor et lycéen travaillant ensemble - Propulse Association"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
                 </PenDrawnCircle>
               </div>
             </div>
@@ -140,7 +131,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <FadeIn delay={1.2}>
+      {/* <FadeIn delay={1.2}>
         <button
           onClick={scrollToNext}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-secondary hover:text-foreground transition-colors cursor-pointer group"
@@ -149,7 +140,7 @@ export function HeroSection() {
           <span className="text-sm font-medium">Découvrir</span>
           <ArrowDown className="w-6 h-6 animate-bounce" />
         </button>
-      </FadeIn>
+      </FadeIn> */}
     </section>
   );
 }

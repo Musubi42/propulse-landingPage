@@ -112,7 +112,7 @@ export function PenDrawnCircle({
       {/* Content container with circular clip-path and sequential fade-in */}
       <div
         ref={contentRef}
-        className={`rounded-full overflow-hidden transition-all duration-700 ease-out ${
+        className={`relative rounded-full overflow-hidden transition-all duration-700 ease-out ${
           showContent ? 'opacity-100 blur-0' : 'opacity-0 blur-md'
         }`}
         style={{

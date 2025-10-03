@@ -86,6 +86,14 @@
   /* Accent Elements */
   --pen-line: 61 61 61; /* #3D3D3D - Animated pen strokes */
   --linkedin: 10 102 194; /* #0A66C2 - Social proof */
+
+  /* Audience Color System (Option C - Triadic Harmony) */
+  --lyceen-primary: 61 127 166; /* #3D7FA6 - Bright blue (youth, potential) */
+  --lyceen-hover: 70 142 186; /* Lighter blue for hover */
+  --mentor-primary: 217 118 66; /* #D97642 - Burnt orange (energy, "Fonce!") */
+  --mentor-hover: 232 149 99; /* #E89563 - Lighter orange */
+  --lycee-primary: 74 107 82; /* #4A6B52 - Forest green (growth, partnership) */
+  --lycee-hover: 93 132 104; /* #5D8468 - Lighter green */
 }
 
 /* Propulse uses light mode only - no dark mode needed */
