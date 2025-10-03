@@ -9,8 +9,32 @@ import { useInView } from 'react-intersection-observer';
 // Declare Vara for TypeScript
 declare global {
   interface Window {
-    Vara: any;
+    Vara: VaraConstructor;
   }
+}
+
+interface VaraConstructor {
+  new (
+    container: string,
+    fontUrl: string,
+    text: VaraText[],
+    options?: VaraOptions
+  ): unknown;
+}
+
+interface VaraText {
+  text: string;
+  fontSize?: number;
+  strokeWidth?: number;
+  color?: string;
+  duration?: number;
+  textAlign?: string;
+}
+
+interface VaraOptions {
+  strokeWidth?: number;
+  color?: string;
+  autoAnimation?: boolean;
 }
 
 export function FoundersSection() {
@@ -18,9 +42,9 @@ export function FoundersSection() {
   const [hugoExpanded, setHugoExpanded] = useState(false);
 
   const arthurVaraContainerRef = useRef<HTMLDivElement>(null);
-  const arthurVaraInstanceRef = useRef<any>(null);
+  const arthurVaraInstanceRef = useRef<unknown>(null);
   const hugoVaraContainerRef = useRef<HTMLDivElement>(null);
-  const hugoVaraInstanceRef = useRef<any>(null);
+  const hugoVaraInstanceRef = useRef<unknown>(null);
 
   const { ref: arthurInViewRef, inView: arthurInView } = useInView({
     threshold: 0.3,

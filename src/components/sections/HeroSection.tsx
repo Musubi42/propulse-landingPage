@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeIn, PenLine } from '@/components/animations';
+import { FadeIn, PenLine, PenDrawnCircle } from '@/components/animations';
 import { ArrowDown } from 'lucide-react';
 
 export function HeroSection() {
@@ -12,14 +12,14 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-background">
+    <section className="relative max-h-[70vh] flex items-center justify-center bg-[#EBE3D5]">
       <div className="container mx-auto px-4 py-20 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Content */}
-          <div className="space-y-8">
+          <div className="space-b-2">
             <FadeIn direction="up" delay={0.1}>
               <div className="inline-block">
-                <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm">
+                <span className="inline-block py-2 bg-accent/10 text-accent font-medium rounded-full text-sm">
                   100% gratuit • 100% à distance
                 </span>
               </div>
@@ -106,11 +106,22 @@ export function HeroSection() {
           {/* Right Column - Visual Placeholder */}
           <FadeIn direction="right" delay={0.3}>
             <div className="relative">
-              {/* Circle Crop Container */}
-              <div className="relative aspect-square max-w-md mx-auto">
+              {/* Pen-Drawn Circle Container */}
+              <div className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
+                {/* Subtle glow effect behind */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl"></div>
-                <div className="relative rounded-full overflow-hidden border-4 border-pen-line/10 shadow-2xl">
-                  <div className="aspect-square bg-background-secondary flex items-center justify-center">
+
+                {/* Pen-drawn circle with Rough Notation: circle animates, then image fades in */}
+                <PenDrawnCircle
+                  size={450}
+                  strokeWidth={3}
+                  strokeColor="#3D3D3D"
+                  animate={true}
+                  animationDuration={2000}
+                  padding={10}
+                  className="drop-shadow-2xl"
+                >
+                  <div className="w-full h-full bg-background-secondary flex items-center justify-center">
                     <div className="text-center p-8">
                       <p className="text-6xl mb-4">📚</p>
                       <p className="text-text-secondary font-medium">
@@ -121,7 +132,7 @@ export function HeroSection() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </PenDrawnCircle>
               </div>
             </div>
           </FadeIn>
