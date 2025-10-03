@@ -14,31 +14,65 @@ declare global {
 }
 
 export function FoundersSection() {
+  const [arthurExpanded, setArthurExpanded] = useState(false);
   const [hugoExpanded, setHugoExpanded] = useState(false);
-  const [varaAnimationComplete, setVaraAnimationComplete] = useState(false);
-  const varaContainerRef = useRef<HTMLDivElement>(null);
-  const varaInstanceRef = useRef<any>(null);
 
-  const { ref: inViewRef, inView } = useInView({
+  const arthurVaraContainerRef = useRef<HTMLDivElement>(null);
+  const arthurVaraInstanceRef = useRef<any>(null);
+  const hugoVaraContainerRef = useRef<HTMLDivElement>(null);
+  const hugoVaraInstanceRef = useRef<any>(null);
+
+  const { ref: arthurInViewRef, inView: arthurInView } = useInView({
     threshold: 0.3,
     triggerOnce: true,
   });
 
-  // Initialize Vara.js when Hugo card comes into view
+  const { ref: hugoInViewRef, inView: hugoInView } = useInView({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
+
+  // Initialize Vara.js for Arthur when card comes into view
   useEffect(() => {
-    if (inView && !hugoExpanded && varaContainerRef.current && typeof window !== 'undefined' && window.Vara) {
-      // Clear any existing instance
-      if (varaInstanceRef.current) {
-        varaContainerRef.current.innerHTML = '';
+    if (arthurInView && !arthurExpanded && arthurVaraContainerRef.current && typeof window !== 'undefined' && window.Vara) {
+      if (arthurVaraInstanceRef.current) {
+        arthurVaraContainerRef.current.innerHTML = '';
       }
 
-      // Initialize Vara
       const vara = new window.Vara(
-        '#vara-container',
-        // 'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Parisienne/Parisienne.json',
+        '#arthur-vara-container',
+        'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Satisfy/SatisfySL.json',
+        [
+          {
+            text: "Ce conseil a probablement été le meilleur qu'on aurait pu me donner. Aujourd'hui, je souhaite aider des lycéens qui, comme moi, sont perdus dans l'univers de l'enseignement supérieur.",
+            fontSize: 18,
+            strokeWidth: 1.5,
+            color: '#1B3A52',
+            duration: 3000,
+            textAlign: 'left',
+          },
+        ],
+        {
+          strokeWidth: 1.5,
+          color: '#1B3A52',
+          autoAnimation: true,
+        }
+      );
+
+      arthurVaraInstanceRef.current = vara;
+    }
+  }, [arthurInView, arthurExpanded]);
+
+  // Initialize Vara.js for Hugo when card comes into view
+  useEffect(() => {
+    if (hugoInView && !hugoExpanded && hugoVaraContainerRef.current && typeof window !== 'undefined' && window.Vara) {
+      if (hugoVaraInstanceRef.current) {
+        hugoVaraContainerRef.current.innerHTML = '';
+      }
+
+      const vara = new window.Vara(
+        '#hugo-vara-container',
         'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Pacifico/PacificoSLO.json',
-        // 'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Satisfy/SatisfySL.json',
-        // 'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Shadows-Into-Light/shadows-into-light.json',
         [
           {
             text: "Je me rends compte que tout cela n'a tenu qu'à un fil et que ma vie aurait pu être radicalement différente si on ne m'avait pas dit : « fonce, tu en es capable ! »",
@@ -56,16 +90,15 @@ export function FoundersSection() {
         }
       );
 
-      varaInstanceRef.current = vara;
-
-      // Mark animation as complete after duration
-      setTimeout(() => {
-        setVaraAnimationComplete(true);
-      }, 3500);
+      hugoVaraInstanceRef.current = vara;
     }
-  }, [inView, hugoExpanded]);
+  }, [hugoInView, hugoExpanded]);
 
-  const handleExpandStory = () => {
+  const handleExpandArthur = () => {
+    setArthurExpanded(true);
+  };
+
+  const handleExpandHugo = () => {
     setHugoExpanded(true);
   };
 
@@ -74,6 +107,7 @@ export function FoundersSection() {
       name: 'Arthur Costa',
       role: 'Co-fondateur',
       education: 'EDHEC Lille & Université Paris-Dauphine',
+      previewText: "Ce conseil a probablement été le meilleur qu'on aurait pu me donner. Aujourd'hui, **je souhaite aider des lycéens qui, comme moi, sont perdus dans l'univers de l'enseignement supérieur.**",
       story: [
         "Originaire du Sud-Ouest de la France, j'ai vécu dans un petit village de 400 habitants près de Tarbes avant de déménager dans la banlieue bordelaise. Issu d'un milieu plutôt rural, les longues études dans des établissements renommés n'allaient pas de soi.",
         "En Terminale, j'étais perdu quant à mes choix d'orientation. Mon professeur d'économie m'a conseillé les classes préparatoires — une filière que je ne connaissais pas jusqu'au milieu de mon année de terminale. **Ce conseil a probablement été le meilleur qu'on aurait pu me donner.**",
@@ -84,6 +118,8 @@ export function FoundersSection() {
       linkedin: 'https://www.linkedin.com/in/arthur-costa',
       email: 'arthur@propulse-association.fr',
       phone: '+33769977242',
+      expandable: true,
+      designType: 'tornPaper' as const,
     },
     {
       name: 'Hugo Nicaise',
@@ -102,6 +138,7 @@ export function FoundersSection() {
       email: 'hugo@propulse-association.fr',
       phone: '+33762542918',
       expandable: true,
+      designType: 'penInk' as const,
     },
   ];
 
@@ -144,7 +181,7 @@ export function FoundersSection() {
               <ScaleIn key={founder.name} delay={0.3 + index * 0.2}>
                 <div
                   className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
-                  ref={founder.expandable ? inViewRef : null}
+                  ref={index === 0 ? arthurInViewRef : hugoInViewRef}
                 >
                   {/* Founder Photo */}
                   <div className="relative mb-6">
@@ -171,8 +208,8 @@ export function FoundersSection() {
                     {founder.expandable ? (
                       <>
                         <AnimatePresence mode="wait">
-                          {!hugoExpanded ? (
-                            /* Floating Speech Bubble with Vara Animation */
+                          {(index === 0 && !arthurExpanded) || (index === 1 && !hugoExpanded) ? (
+                            /* Preview with Vara Animation */
                             <motion.div
                               key="preview"
                               initial={{ opacity: 0, scale: 0.95 }}
@@ -181,29 +218,83 @@ export function FoundersSection() {
                               transition={{ duration: 0.4 }}
                               className="relative"
                             >
-                              <div
-                                onClick={handleExpandStory}
-                                className="bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 shadow-lg border-2 border-accent/20 cursor-pointer hover:shadow-xl hover:border-accent/30 transition-all duration-300 relative"
-                              >
-                                {/* Speech bubble arrow */}
-                                <div className="absolute -top-3 left-8 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[12px] border-b-accent/20"></div>
-                                <div className="absolute -top-2 left-8 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-accent/5"></div>
-
-                                {/* Vara handwritten text container */}
+                              {founder.designType === 'tornPaper' ? (
+                                /* Proposition 1: Torn Paper Design (Arthur) */
                                 <div
-                                  id="vara-container"
-                                  ref={varaContainerRef}
-                                  className="min-h-[120px] mb-4"
-                                ></div>
-
-                                {/* Lire la suite button */}
-                                <button
-                                  onClick={handleExpandStory}
-                                  className="text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 mt-2 transition-colors"
+                                  onClick={handleExpandArthur}
+                                  className="torn-paper-note bg-gradient-to-br from-[#F5EFE6] to-[#EBE3D5] rounded-2xl p-6 shadow-xl cursor-pointer hover:shadow-2xl hover:-rotate-1 transition-all duration-300 relative"
+                                  style={{
+                                    transform: 'rotate(-1.5deg)',
+                                    clipPath: 'polygon(0 2%, 3% 0, 7% 1%, 12% 0, 17% 2%, 21% 0, 26% 1%, 31% 0, 36% 2%, 41% 0, 46% 1%, 51% 0, 56% 2%, 61% 0, 66% 1%, 71% 0, 76% 2%, 81% 0, 86% 1%, 91% 0, 96% 2%, 100% 0, 100% 98%, 97% 100%, 93% 99%, 88% 100%, 83% 98%, 78% 100%, 73% 99%, 68% 100%, 63% 98%, 58% 100%, 53% 99%, 48% 100%, 43% 98%, 38% 100%, 33% 99%, 28% 100%, 23% 98%, 18% 100%, 13% 99%, 8% 100%, 3% 98%, 0 100%)'
+                                  }}
                                 >
-                                  Lire la suite →
-                                </button>
-                              </div>
+                                  {/* Paper clip */}
+                                  <div className="absolute -top-2 -right-2 text-2xl opacity-60">📎</div>
+
+                                  {/* Vara container */}
+                                  <div
+                                    id="arthur-vara-container"
+                                    ref={arthurVaraContainerRef}
+                                    className="min-h-[120px] mb-4"
+                                  ></div>
+
+                                  {/* Button */}
+                                  <button
+                                    onClick={handleExpandArthur}
+                                    className="text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 mt-2 transition-colors"
+                                  >
+                                    Lire l&apos;histoire complète →
+                                  </button>
+                                </div>
+                              ) : (
+                                /* Proposition 2: Pen & Ink Box Design (Hugo) */
+                                <div
+                                  onClick={handleExpandHugo}
+                                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 relative border-2 border-transparent"
+                                  style={{
+                                    borderImage: 'none',
+                                  }}
+                                >
+                                  {/* Animated pen-drawn border */}
+                                  <div className="absolute inset-0 rounded-2xl pointer-events-none">
+                                    <svg className="absolute inset-0 w-full h-full" style={{ strokeDasharray: '10, 5' }}>
+                                      <rect
+                                        x="4"
+                                        y="4"
+                                        width="calc(100% - 8px)"
+                                        height="calc(100% - 8px)"
+                                        rx="16"
+                                        fill="none"
+                                        stroke="#D97642"
+                                        strokeWidth="2"
+                                        className="animate-draw-border"
+                                      />
+                                    </svg>
+                                  </div>
+
+                                  {/* Ink splatters */}
+                                  <div className="absolute top-2 right-4 w-2 h-2 rounded-full bg-accent/20"></div>
+                                  <div className="absolute bottom-4 left-6 w-1.5 h-1.5 rounded-full bg-accent/30"></div>
+
+                                  {/* Vara container */}
+                                  <div
+                                    id="hugo-vara-container"
+                                    ref={hugoVaraContainerRef}
+                                    className="min-h-[120px] mb-4 relative z-10"
+                                  ></div>
+
+                                  {/* Hand-drawn arrow + button */}
+                                  <div className="flex items-center gap-2 relative z-10">
+                                    <span className="text-accent text-xl">→</span>
+                                    <button
+                                      onClick={handleExpandHugo}
+                                      className="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
+                                    >
+                                      Découvrir l&apos;histoire
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
                             </motion.div>
                           ) : (
                             /* Full Story with ScaleIn Animation */
@@ -232,22 +323,7 @@ export function FoundersSection() {
                           )}
                         </AnimatePresence>
                       </>
-                    ) : (
-                      /* Regular Story Display for Arthur */
-                      <div className="space-y-4">
-                        {founder.story.map((paragraph, i) => (
-                          <p
-                            key={i}
-                            dangerouslySetInnerHTML={{
-                              __html: paragraph.replace(
-                                /\*\*(.*?)\*\*/g,
-                                '<strong class="text-foreground font-semibold">$1</strong>'
-                              ),
-                            }}
-                          />
-                        ))}
-                      </div>
-                    )}
+                    ) : null}
                   </div>
 
                   {/* Pen Line Divider */}

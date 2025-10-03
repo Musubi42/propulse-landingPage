@@ -146,4 +146,29 @@
       filter: blur(0);
     }
   }
+
+  /* Torn paper effect */
+  .torn-paper-note {
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.02) 1px,
+        rgba(0, 0, 0, 0.02) 2px
+      );
+  }
+
+  /* Animated pen-drawn border */
+  .animate-draw-border {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawBorder 2s ease-in-out forwards;
+  }
+
+  @keyframes drawBorder {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
 }
