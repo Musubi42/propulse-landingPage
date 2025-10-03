@@ -60,14 +60,15 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Pacifico&display=swap" rel="stylesheet" />
       </head>
       <body
         className={`${inter.variable} ${merriweather.variable} font-sans antialiased`}
       >
         <Header />
         {children}
-        {/* Vara.js via CDN with async loading */}
-        <script async src="https://cdn.jsdelivr.net/npm/vara@1.4.0/lib/vara.min.js" type="text/javascript"></script>
       </body>
     </html>
   );

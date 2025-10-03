@@ -1,50 +1,14 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { FadeIn, ScaleIn, PolymorphDivider, PenLine } from '@/components/animations';
+import { useState } from 'react';
+import { FadeIn, ScaleIn, PenLine } from '@/components/animations';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-// Declare Vara for TypeScript
-declare global {
-  interface Window {
-    Vara: VaraConstructor;
-  }
-}
-
-interface VaraConstructor {
-  new (
-    container: string,
-    fontUrl: string,
-    text: VaraText[],
-    options?: VaraOptions
-  ): unknown;
-}
-
-interface VaraText {
-  text: string;
-  fontSize?: number;
-  strokeWidth?: number;
-  color?: string;
-  duration?: number;
-  textAlign?: string;
-}
-
-interface VaraOptions {
-  strokeWidth?: number;
-  color?: string;
-  autoAnimation?: boolean;
-}
-
 export function FoundersSection() {
   const [arthurExpanded, setArthurExpanded] = useState(false);
   const [hugoExpanded, setHugoExpanded] = useState(false);
-
-  const arthurVaraContainerRef = useRef<HTMLDivElement>(null);
-  const arthurVaraInstanceRef = useRef<unknown>(null);
-  const hugoVaraContainerRef = useRef<HTMLDivElement>(null);
-  const hugoVaraInstanceRef = useRef<unknown>(null);
 
   const { ref: arthurInViewRef, inView: arthurInView } = useInView({
     threshold: 0.3,
@@ -55,68 +19,6 @@ export function FoundersSection() {
     threshold: 0.3,
     triggerOnce: true,
   });
-
-  // Initialize Vara.js for Arthur when card comes into view
-  useEffect(() => {
-    if (arthurInView && !arthurExpanded && arthurVaraContainerRef.current && typeof window !== 'undefined' && window.Vara) {
-      if (arthurVaraInstanceRef.current) {
-        arthurVaraContainerRef.current.innerHTML = '';
-      }
-
-      const vara = new window.Vara(
-        '#arthur-vara-container',
-        'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Satisfy/SatisfySL.json',
-        [
-          {
-            text: "Ce conseil a probablement été le meilleur qu'on aurait pu me donner. Aujourd'hui, je souhaite aider des lycéens qui, comme moi, sont perdus dans l'univers de l'enseignement supérieur.",
-            fontSize: 18,
-            strokeWidth: 1.5,
-            color: '#1B3A52',
-            duration: 3000,
-            textAlign: 'left',
-          },
-        ],
-        {
-          strokeWidth: 1.5,
-          color: '#1B3A52',
-          autoAnimation: true,
-        }
-      );
-
-      arthurVaraInstanceRef.current = vara;
-    }
-  }, [arthurInView, arthurExpanded]);
-
-  // Initialize Vara.js for Hugo when card comes into view
-  useEffect(() => {
-    if (hugoInView && !hugoExpanded && hugoVaraContainerRef.current && typeof window !== 'undefined' && window.Vara) {
-      if (hugoVaraInstanceRef.current) {
-        hugoVaraContainerRef.current.innerHTML = '';
-      }
-
-      const vara = new window.Vara(
-        '#hugo-vara-container',
-        'https://raw.githubusercontent.com/akzhy/Vara/refs/heads/master/fonts/Pacifico/PacificoSLO.json',
-        [
-          {
-            text: "Je me rends compte que tout cela n'a tenu qu'à un fil et que ma vie aurait pu être radicalement différente si on ne m'avait pas dit : « fonce, tu en es capable ! »",
-            fontSize: 18,
-            strokeWidth: 1.5,
-            color: '#D97642',
-            duration: 3000,
-            textAlign: 'left',
-          },
-        ],
-        {
-          strokeWidth: 1.5,
-          color: '#D97642',
-          autoAnimation: true,
-        }
-      );
-
-      hugoVaraInstanceRef.current = vara;
-    }
-  }, [hugoInView, hugoExpanded]);
 
   const handleExpandArthur = () => {
     setArthurExpanded(true);
@@ -131,7 +33,7 @@ export function FoundersSection() {
       name: 'Arthur Costa',
       role: 'Co-fondateur',
       education: 'EDHEC Lille & Université Paris-Dauphine',
-      previewText: "Ce conseil a probablement été le meilleur qu'on aurait pu me donner. Aujourd'hui, **je souhaite aider des lycéens qui, comme moi, sont perdus dans l'univers de l'enseignement supérieur.**",
+      previewText: "Ce conseil a probablement ét&eacute; le meilleur qu'on aurait pu me donner. Aujourd'hui, **je souhaite aider des lycéens qui, comme moi, sont perdus dans l'univers de l'enseignement supérieur.**",
       story: [
         "Originaire du Sud-Ouest de la France, j'ai vécu dans un petit village de 400 habitants près de Tarbes avant de déménager dans la banlieue bordelaise. Issu d'un milieu plutôt rural, les longues études dans des établissements renommés n'allaient pas de soi.",
         "En Terminale, j'étais perdu quant à mes choix d'orientation. Mon professeur d'économie m'a conseillé les classes préparatoires — une filière que je ne connaissais pas jusqu'au milieu de mon année de terminale. **Ce conseil a probablement été le meilleur qu'on aurait pu me donner.**",
@@ -168,7 +70,7 @@ export function FoundersSection() {
 
   return (
     <>
-      <PolymorphDivider variant="wave1" flip color="rgb(250, 246, 240)" />
+      {/* <PolymorphDivider variant="wave1" flip color="rgb(250, 246, 240)" /> */}
 
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -255,12 +157,18 @@ export function FoundersSection() {
                                   {/* Paper clip */}
                                   <div className="absolute -top-2 -right-2 text-2xl opacity-60">📎</div>
 
-                                  {/* Vara container */}
-                                  <div
-                                    id="arthur-vara-container"
-                                    ref={arthurVaraContainerRef}
-                                    className="min-h-[120px] mb-4"
-                                  ></div>
+                                  {/* Handwritten quote with Framer Motion */}
+                                  <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={arthurInView ? { opacity: 1 } : { opacity: 0 }}
+                                    transition={{ duration: 2, ease: "easeInOut" }}
+                                    className="font-handwriting italic text-xl text-[#1B3A52] min-h-[120px] mb-4"
+                                    style={{
+                                      fontFamily: "'Satisfy', cursive",
+                                    }}
+                                  >
+                                    Ce conseil a probablement été le meilleur qu&apos;on aurait pu me donner. Aujourd&apos;hui, je souhaite aider des lycéens qui, comme moi, sont perdus dans l&apos;univers de l&apos;enseignement supérieur.
+                                  </motion.p>
 
                                   {/* Button */}
                                   <button
@@ -300,12 +208,18 @@ export function FoundersSection() {
                                   <div className="absolute top-2 right-4 w-2 h-2 rounded-full bg-accent/20"></div>
                                   <div className="absolute bottom-4 left-6 w-1.5 h-1.5 rounded-full bg-accent/30"></div>
 
-                                  {/* Vara container */}
-                                  <div
-                                    id="hugo-vara-container"
-                                    ref={hugoVaraContainerRef}
-                                    className="min-h-[120px] mb-4 relative z-10"
-                                  ></div>
+                                  {/* Handwritten quote with Framer Motion */}
+                                  <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={hugoInView ? { opacity: 1 } : { opacity: 0 }}
+                                    transition={{ duration: 2, ease: "easeInOut" }}
+                                    className="font-handwriting italic text-xl text-[#D97642] min-h-[120px] mb-4 relative z-10"
+                                    style={{
+                                      fontFamily: "'Pacifico', cursive",
+                                    }}
+                                  >
+                                    Je me rends compte que tout cela n&apos;a tenu qu&apos;à un fil et que ma vie aurait pu être radicalement différente si on ne m&apos;avait pas dit : « fonce, tu en es capable ! »
+                                  </motion.p>
 
                                   {/* Hand-drawn arrow + button */}
                                   <div className="flex items-center gap-2 relative z-10">

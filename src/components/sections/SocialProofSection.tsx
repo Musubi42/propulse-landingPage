@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeIn, Counter } from '@/components/animations';
+import { FadeIn, Counter, PenCircle } from '@/components/animations';
 import { Linkedin, Users, Heart } from 'lucide-react';
 
 export function SocialProofSection() {
@@ -30,7 +30,9 @@ export function SocialProofSection() {
                 <Users className="w-8 h-8 text-primary" />
               </div>
               <div className="text-5xl font-bold text-primary mb-2">
-                <Counter end={50} suffix="+" duration={2} />
+                <PenCircle color="#1B3A52" delay={2.5} padding={12}>
+                  <Counter end={50} suffix="+" duration={2} />
+                </PenCircle>
               </div>
               <p className="text-text-secondary font-medium">
                 Mentors engagés
@@ -68,7 +70,9 @@ export function SocialProofSection() {
                 <Heart className="w-8 h-8 text-secondary" />
               </div>
               <div className="text-5xl font-bold text-secondary mb-2">
-                100%
+                <PenCircle color="#4A6B52" delay={1.5} padding={16}>
+                  100%
+                </PenCircle>
               </div>
               <p className="text-text-secondary font-medium">
                 Gratuit & à distance

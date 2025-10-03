@@ -13,7 +13,7 @@
  * - Smooth animations with performance optimization
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useWheelScroll } from '@/hooks/useWheelScroll';
@@ -49,6 +49,7 @@ export function HorizontalTimeline({
 }: HorizontalTimelineProps) {
   const [currentPhase, setCurrentPhase] = useState(defaultPhase);
   const [isDesktop, setIsDesktop] = useState(false);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   // Detect screen size for conditional features
   useEffect(() => {
@@ -100,11 +101,15 @@ export function HorizontalTimeline({
   /**
    * Mouse wheel navigation hook
    * Only enabled on desktop (≥1024px)
+   * Smart hijacking: only prevents scroll when can navigate
    */
   useWheelScroll({
     enabled: enableWheelScroll && isDesktop,
+    elementRef: timelineRef,
     onScrollDown: goToNextPhase,
     onScrollUp: goToPreviousPhase,
+    canScrollNext: useCallback(() => currentPhase < phases.length - 1, [currentPhase, phases.length]),
+    canScrollPrev: useCallback(() => currentPhase > 0, [currentPhase]),
     debounceMs: 150,
   });
 
@@ -191,6 +196,7 @@ export function HorizontalTimeline({
 
   return (
     <div
+      ref={timelineRef}
       className={cn('horizontal-timeline relative w-full', className)}
       role="region"
       aria-label="Programme timeline"

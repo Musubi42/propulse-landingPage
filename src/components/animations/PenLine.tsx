@@ -16,7 +16,7 @@ interface PenLineProps {
 
 export function PenLine({
   width = 200,
-  height = 20,
+  height = 40,
   strokeWidth = 2,
   color = 'rgb(61, 61, 61)', // --pen-line color
   duration = 1.2,

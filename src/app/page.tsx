@@ -9,6 +9,11 @@ import {
   FinalCTASection,
   Footer,
 } from '@/components/sections';
+import {
+  OrganicWavePenStroke,
+  DoubleStrokePenLine,
+  AnimatedPenDraw
+} from '@/components/transitions';
 
 export const metadata: Metadata = {
   title: 'Propulse | Mentorat gratuit pour lycéens vers les Grandes Écoles',
@@ -20,11 +25,15 @@ export default function Home() {
     <>
       <main className="min-h-screen">
         <HeroSection />
-        <SocialProofSection />
-        <StatisticsSection />
         <SolutionSection />
-        <FoundersSection />
-        <MentorsSection />
+        <AnimatedPenDraw />
+        <StatisticsSection />
+        <OrganicWavePenStroke />
+        <SocialProofSection />
+        <DoubleStrokePenLine />
+        {/* <OrganicWavePenStroke /> */}
+        {/* <FoundersSection />
+        <MentorsSection /> */}
         <FinalCTASection />
       </main>
       <Footer />

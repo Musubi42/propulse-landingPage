@@ -24,14 +24,19 @@ import type { TimelinePenLineProps } from './types';
 export function TimelinePenLine({
   totalPhases,
   currentPhase,
+  progress,
   className,
 }: TimelinePenLineProps) {
   const lineRef = useRef<HTMLDivElement>(null);
   const annotationRef = useRef<RoughAnnotation | null>(null);
   const isInitializedRef = useRef(false);
 
-  // Calculate line width based on current phase progress
-  const progressPercentage = (currentPhase / (totalPhases - 1)) * 100;
+  // Use continuous progress if provided (from GSAP scroll), otherwise discrete phase
+  const progressPercentage = progress !== undefined
+    ? progress * 100 // Continuous: 0-100% matching exact scroll position
+    : currentPhase === totalPhases - 1
+      ? 100
+      : (currentPhase / (totalPhases - 1)) * 100;
 
   // Initialize annotation once on mount
   useEffect(() => {
@@ -63,46 +68,74 @@ export function TimelinePenLine({
     };
   }, []);
 
-  // Update when phase changes (but don't recreate the annotation)
+  // Update when phase changes - NO animation restart
+  // The line width changes via CSS transition, rough-notation stays visible
+  // This creates a smooth progressive extension effect
   useEffect(() => {
-    if (!isInitializedRef.current || !annotationRef.current) return;
-
-    // Hide and show again to trigger re-draw with new width
-    annotationRef.current.hide();
-    setTimeout(() => {
-      if (annotationRef.current) {
-        annotationRef.current.show();
-      }
-    }, 50);
+    // Line extends naturally via CSS transition on progressPercentage change
+    // No need to hide/show annotation - it adapts to container width automatically
   }, [currentPhase]);
+
+  // The line needs to match the exact layout of TimelineDots
+  // TimelineDots uses: flex items-center justify-center gap-6 md:gap-10
+  // We need to calculate positions based on dot widths + gaps
+
+  // Dot sizes (from TimelineDots)
+  const dotSize = 12; // w-12 h-12 for inactive dots (48px = 3rem)
+  const activeDotSize = 14; // w-14 h-14 for active dot (56px = 3.5rem)
+  const gap = 10; // gap-10 on desktop (40px = 2.5rem)
+
+  // Total phases
+  const n = totalPhases;
+
+  // Calculate total width of all dots + gaps
+  // For n dots: (n dots) + (n-1 gaps)
+  const totalDotsWidth = `calc(${n} * 3rem + ${n - 1} * 2.5rem)`;
+
+  // Distance from first dot center to last dot center
+  // = (n-1) * (dot_width + gap) where we use average dot width of 3rem
+  const fullLineWidth = `calc((${n - 1}) * (3rem + 2.5rem))`;
 
   return (
     <div
       className={cn(
-        'timeline-pen-line absolute top-8 left-0 right-0 pointer-events-none',
+        'timeline-pen-line flex items-center justify-center pointer-events-none',
         'hidden md:block', // Only show on desktop
         className
       )}
       aria-hidden="true"
     >
-      {/* Container for the line with progress-based width */}
-      <div
-        className="relative mx-auto"
-        style={{
-          width: '80%',
-          maxWidth: '800px',
-        }}
-      >
-        {/* The actual line element that rough-notation annotates */}
+      {/* Container matching TimelineDots layout */}
+      <div className="relative flex items-center justify-center gap-10">
+        {/* Spacer dots (invisible) to create same layout as TimelineDots */}
+        {Array.from({ length: totalPhases }).map((_, i) => (
+          <div
+            key={i}
+            className="w-12 h-12 opacity-0 pointer-events-none flex-shrink-0"
+            aria-hidden="true"
+          />
+        ))}
+
+        {/* Absolute positioned line that sits on top of spacers */}
         <div
-          ref={lineRef}
-          className="relative h-0.5 bg-transparent transition-all duration-500"
+          className="absolute inset-0 flex items-center"
           style={{
-            width: `${progressPercentage}%`,
+            // Position line to start at first dot center
+            left: 'calc(1.5rem)', // Half of w-12 (3rem / 2)
+            right: 'calc(1.5rem)', // Half of w-12
           }}
         >
-          {/* Invisible content for rough-notation to wrap */}
-          <span className="invisible">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+          <div
+            ref={lineRef}
+            className="relative h-0.5 bg-transparent transition-all duration-300 ease-out"
+            style={{
+              // Width grows from 0 to fullLineWidth based on progress
+              width: `calc(${fullLineWidth} * ${progressPercentage / 100})`,
+            }}
+          >
+            {/* Invisible content for rough-notation to wrap */}
+            <span className="invisible">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+          </div>
         </div>
       </div>
     </div>

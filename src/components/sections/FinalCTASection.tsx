@@ -39,7 +39,7 @@ export function FinalCTASection() {
 
   return (
     <>
-      <PolymorphDivider variant="wave1" color="rgb(250, 246, 240)" />
+      {/* <PolymorphDivider variant="wave1" color="rgb(250, 246, 240)" /> */}
 
       <section className="py-20 bg-background relative overflow-hidden">
         {/* Background decoration */}

@@ -60,7 +60,7 @@ export function MentorsSection() {
 
   return (
     <>
-      <PolymorphDivider variant="wave2" flip color="rgb(245, 239, 230)" />
+      {/* <PolymorphDivider variant="wave2" flip color="rgb(245, 239, 230)" /> */}
 
       <section className="py-20 bg-background-secondary">
         <div className="container mx-auto px-4">

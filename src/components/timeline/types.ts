@@ -80,5 +80,6 @@ export interface TimelineDotsProps {
 export interface TimelinePenLineProps {
   totalPhases: number;
   currentPhase: number;
+  progress?: number; // Continuous scroll progress (0-1) for smooth line extension
   className?: string;
 }

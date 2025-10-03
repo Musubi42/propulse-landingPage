@@ -6,67 +6,77 @@ This directory contains detailed analysis and implementation guides for features
 
 ---
 
-## 🔴 Critical Priority
+## ✅ Completed Features
 
-These features are essential to Propulse's identity and should be implemented ASAP:
+These features have been successfully implemented:
 
-### 1. [MISSING-FONCE-TAGLINE.md](./MISSING-FONCE-TAGLINE.md)
+### 1. ✅ [MISSING-FONCE-TAGLINE.md](./MISSING-FONCE-TAGLINE.md) - **COMPLETE**
 **"Fonce, tu en es capable!" - The Core Brand Tagline**
 
-- **Impact:** This is THE emotional hook that defines Propulse
-- **Missing From:** Hero section AND Founders section
-- **Effort:** 2-4 hours
-- **Why Critical:** This phrase is the origin story (Hugo's life changed when he heard this)
+- **Status:** ✅ Implemented in Hero + Founders sections
+- **Completed:** 2025-10-03
+- **Implementation:** Bold italic styling, accent color, animated fade-in
+- **Location:** Lines 55-62 (Hero), Lines 411-426 (Founders)
 
 ---
 
-### 2. [MISSING-PEN-LINE-METAPHOR.md](./MISSING-PEN-LINE-METAPHOR.md)
-**Animated Pen Line Journey Throughout Scroll**
-
-- **Impact:** Primary visual identity motif completely absent
-- **Missing:** Scroll-based pen line, stat reveals, timeline connectors
-- **Effort:** 8-12 hours
-- **Why Critical:** Represents "writing your own journey" - core to visual identity
-
----
-
-### 3. [MISSING-FOUNDER-STORIES.md](./MISSING-FOUNDER-STORIES.md)
-**Full Founder Narratives (Not Just Quotes)**
-
-- **Impact:** Loses emotional credibility and founder-led narrative
-- **Missing:** Full 3-4 paragraph stories, bold emphasis, expertise tags
-- **Effort:** 4-6 hours
-- **Why Critical:** PRD states "Founder-story led" - this is the trust foundation
-
----
-
-### 4. [WRONG-STATISTICS.md](./WRONG-STATISTICS.md)
-**Le Problème Section Shows Wrong Stats**
-
-- **Impact:** Core data narrative changed without documented reason
-- **Issue:** 4 stats with different framing vs. PRD's 3 specific stats
-- **Effort:** 2-3 hours
-- **Why Critical:** Data integrity and narrative structure
-
----
-
-### 5. [MISSING-HERO-PEN-EDGE.md](./MISSING-HERO-PEN-EDGE.md)
+### 2. ✅ [MISSING-HERO-PEN-EDGE.md](./MISSING-HERO-PEN-EDGE.md) - **COMPLETE**
 **Pen-Drawn Edge Effect on Hero Circle**
 
-- **Impact:** Loses hand-crafted, warm aesthetic
-- **Missing:** Imperfect, hand-drawn circle edge (currently perfect circle)
-- **Effort:** 2-3 hours
-- **Why Critical:** Visual identity - distinguishes from corporate feel
+- **Status:** ✅ Implemented with Rough Notation
+- **Completed:** 2025-10-03
+- **Implementation:** Animated pen-drawn circle with 2s drawing animation
+- **Enhancement:** Sequential animation (circle → image fade-in)
 
 ---
 
-### 6. [MISSING-SCROLL-INDICATOR.md](./MISSING-SCROLL-INDICATOR.md)
+### 3. ✅ [MISSING-FOUNDER-STORIES.md](./MISSING-FOUNDER-STORIES.md) - **COMPLETE**
+**Full Founder Narratives with Expandable Cards**
+
+- **Status:** ✅ Implemented with dual design system
+- **Completed:** 2025-10-03
+- **Implementation:** Expandable cards, Vara.js animations, full stories
+- **Enhancement:** Torn paper (Arthur) + Pen & Ink (Hugo) designs
+
+---
+
+### 4. ✅ [HERO-CTA-UPDATES.md](./HERO-CTA-UPDATES.md) - **COMPLETE**
+**Three Equal CTAs with Triadic Color System**
+
+- **Status:** ✅ Implemented with audience color system
+- **Completed:** 2025-10-03
+- **Implementation:** Blue (Lycéen), Orange (Mentor), Green (Lycée)
+
+---
+
+### 5. ✅ [WRONG-STATISTICS.md](./WRONG-STATISTICS.md) - **VERIFIED CORRECT**
+**Le Problème Section Stats**
+
+- **Status:** ✅ Already matches PRD specifications
+- **Verified:** 2025-10-03
+- **Stats:** 1/3 (geographic), 7-10× (social), 60% (self-censorship)
+
+---
+
+### 6. ✅ [MISSING-SCROLL-INDICATOR.md](./MISSING-SCROLL-INDICATOR.md) - **COMPLETE**
 **Animated Scroll Arrow in Hero**
 
-- **Impact:** Minor UX - less visual guidance to scroll
-- **Missing:** Animated down arrow with bounce
-- **Effort:** 1 hour
-- **Why Critical:** (Actually moderate - reclassified below)
+- **Status:** ✅ Implemented with bounce animation
+- **Completed:** 2025-10-03
+- **Implementation:** "Découvrir" text + ChevronDown, smooth scroll to next
+
+---
+
+## 🔴 Critical Priority - Remaining
+
+### 7. [MISSING-PEN-LINE-METAPHOR.md](./MISSING-PEN-LINE-METAPHOR.md)
+**Animated Pen Line Journey Throughout Scroll**
+
+- **Impact:** Primary visual identity motif partially implemented
+- **Current:** Hero circle + Timeline pen line ✅
+- **Missing:** Scroll-based pen line journey, stat reveals, section connectors
+- **Effort:** 8-12 hours
+- **Status:** Partially implemented (defer full implementation)
 
 ---
 

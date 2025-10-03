@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeIn, PenLine, PenDrawnCircle } from '@/components/animations';
+import { FadeIn, PenLine, PenDrawnCircle, PenUnderline } from '@/components/animations';
 import { ArrowDown, GraduationCap, Users, Building2 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -54,9 +54,9 @@ export function HeroSection() {
 
             {/* Fonce Tagline */}
             <FadeIn direction="up" delay={0.5}>
-              <div className="pt-2">
+              <div className="mt-20">
                 <p className="text-3xl md:text-4xl font-bold italic text-accent">
-                  &ldquo;Fonce, tu en es capable !&rdquo;
+                  &ldquo;<PenUnderline color="#D97642" delay={1.4} strokeWidth={3}>Fonce</PenUnderline>, tu en es capable !&rdquo;
                 </p>
               </div>
             </FadeIn>

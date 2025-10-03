@@ -386,6 +386,30 @@ const handleClick = () => {
 
 ---
 
-**Status:** ❌ Not Started
-**Blocked By:** None
-**Estimated Completion:** 1 hour
+## ✅ Implementation Complete (2025-10-03)
+
+### What Was Implemented
+
+**Scroll Indicator** ✅ COMPLETE
+- Lines 134-143 in [HeroSection.tsx](../../src/components/sections/HeroSection.tsx)
+- Positioned at bottom center of hero section
+- "Découvrir" text label + ChevronDown icon
+- Animated bounce effect (`animate-bounce`)
+- FadeIn animation with 1.2s delay
+- Click handler to smooth scroll to next section (#social-proof)
+- Hover state (text color change)
+- Accessible with aria-label
+
+**Implementation Details:**
+- Component: Button with FadeIn wrapper
+- Icon: Lucide React `ArrowDown` with bounce animation
+- Position: `absolute bottom-8 left-1/2 -translate-x-1/2`
+- Colors: `text-text-secondary` → `hover:text-foreground`
+- Smooth scroll behavior to `#social-proof` section
+
+---
+
+**Status:** ✅ **COMPLETE**
+**Completed:** 2025-10-03
+**Actual Effort:** 5 minutes (uncommenting existing code)
+**PRD Compliance:** 100%

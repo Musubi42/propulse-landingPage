@@ -9,7 +9,7 @@ export function SolutionSection() {
     {
       icon: Target,
       title: 'Mentorat personnalisé',
-      description: 'Un mentor étudiant ou alumni dédié pour t&apos;accompagner tout au long de l&apos;année',
+      description: `Un mentor étudiant ou alumni dédié pour t'accompagner tout au long de l'année`,
       color: 'text-primary',
       bgColor: 'bg-primary/10',
     },
@@ -31,7 +31,7 @@ export function SolutionSection() {
 
   return (
     <>
-      <PolymorphDivider variant="wave2" color="rgb(245, 239, 230)" />
+      {/* <PolymorphDivider variant="wave2" color="rgb(245, 239, 230)" /> */}
 
       <section className="py-20 bg-background-secondary">
         <div className="container mx-auto px-4">
@@ -50,10 +50,10 @@ export function SolutionSection() {
                 Un accompagnement{' '}
                 <span className="relative inline-block">
                   <span className="relative z-10">complet et gratuit</span>
-                  <div className="absolute -bottom-2 left-0 w-full">
+                  <div className="absolute -bottom-4 left-0 w-full">
                     <PenLine
                       variant="underline"
-                      width={280}
+                      width={410}
                       color="rgb(74, 107, 82)"
                       delay={0.6}
                     />

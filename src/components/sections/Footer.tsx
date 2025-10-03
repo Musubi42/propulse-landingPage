@@ -5,8 +5,24 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="relative bg-primary text-primary-foreground overflow-hidden">
+      {/* Polymorph Wave Background at Top */}
+      <div className="absolute top-[-40px] left-0 w-full">
+        <svg
+          className="w-full h-auto"
+          viewBox="0 0 1440 450"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ display: 'block', transform: 'scaleY(1.2) ' }}
+        >
+          <path
+            fill="#EBE3D5"
+            d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,112C960,117,1056,107,1152,96C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          />
+        </svg>
+      </div>
+
+      <div className="container mx-auto px-4 py-12 relative z-10 pt-42">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="md:col-span-1">

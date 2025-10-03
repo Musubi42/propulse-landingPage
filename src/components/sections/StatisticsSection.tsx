@@ -1,12 +1,12 @@
 'use client';
 
-import { FadeIn, ScaleIn, Counter, PolymorphDivider } from '@/components/animations';
+import { FadeIn, ScaleIn, Counter, PolymorphDivider, PenUnderline } from '@/components/animations';
 import { MapPin, Users2, GraduationCap } from 'lucide-react';
 
 export function StatisticsSection() {
   return (
     <>
-      <PolymorphDivider variant="wave1" color="rgb(250, 246, 240)" />
+      {/* <PolymorphDivider variant="wave1" color="rgb(250, 246, 240)" /> */}
 
       <section className="py-20 bg-background relative overflow-hidden">
         {/* Background decoration */}
@@ -99,7 +99,10 @@ export function StatisticsSection() {
           <FadeIn direction="up" delay={0.8}>
             <div className="text-center bg-background-secondary rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
               <h3 className="text-foreground mb-4">
-                Ces inégalités ne sont <span className="text-accent">pas une fatalité</span>
+                Ces inégalités ne sont{' '}
+                <PenUnderline color="#D97642" delay={1.2} strokeWidth={3}>
+                  <span className="text-accent">pas une fatalité</span>
+                </PenUnderline>
               </h3>
               <p className="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
                 Le manque d&apos;information et de réseau est le principal frein.

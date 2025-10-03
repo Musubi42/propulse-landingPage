@@ -5,3 +5,8 @@ export { Counter } from './Counter';
 export { PenLine } from './PenLine';
 export { PolymorphDivider } from './PolymorphDivider';
 export { PenDrawnCircle } from './PenDrawnCircle';
+export { PenUnderline } from './PenUnderline';
+export { PenCircle } from './PenCircle';
+export { PenBox } from './PenBox';
+export { SectionConnector } from './SectionConnector';
+export { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';

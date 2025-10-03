@@ -36,7 +36,21 @@ const colorClasses = {
 };
 
 /**
+ * Detect low-end devices to optimize blur effects
+ * Devices with 2 or fewer CPU cores are considered low-end
+ */
+const isLowEndDevice = (() => {
+  if (typeof window === 'undefined') return false;
+  // Check hardware concurrency (CPU cores)
+  return (
+    navigator.hardwareConcurrency !== undefined &&
+    navigator.hardwareConcurrency <= 2
+  );
+})();
+
+/**
  * Animation variants for different card positions
+ * Blur is removed on low-end devices for better performance
  */
 const cardVariants: Variants = {
   active: {
@@ -50,14 +64,14 @@ const cardVariants: Variants = {
     x: -120,
     scale: 0.85,
     opacity: 0.5,
-    filter: 'blur(1px)',
+    filter: isLowEndDevice ? 'blur(0px)' : 'blur(1px)', // No blur on weak devices
     transition: { duration: 0.4, ease: [0.42, 0, 0.58, 1] },
   },
   next: {
     x: 120,
     scale: 0.85,
     opacity: 0.5,
-    filter: 'blur(1px)',
+    filter: isLowEndDevice ? 'blur(0px)' : 'blur(1px)', // No blur on weak devices
     transition: { duration: 0.4, ease: [0.42, 0, 0.58, 1] },
   },
   hidden: {
@@ -110,7 +124,8 @@ export function TimelineCard({ phase, position, onClick }: TimelineCardProps) {
         colors.border,
         isActive ? 'shadow-lg' : 'shadow-sm',
         position !== 'active' && 'cursor-pointer hover:shadow-md',
-        'w-full max-w-[800px]'
+        // Responsive max-width: smaller on 1024-1280px screens
+        'w-full max-w-[800px] xl:max-w-[800px] lg:max-w-[650px]'
       )}
       variants={prefersReducedMotion ? undefined : cardVariants}
       animate={position}

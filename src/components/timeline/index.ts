@@ -5,6 +5,7 @@
  */
 
 export { HorizontalTimeline } from './HorizontalTimeline';
+export { FullscreenTimeline } from './FullscreenTimeline';
 export { TimelineCard } from './TimelineCard';
 export { TimelineDots } from './TimelineDots';
 export { TimelinePenLine } from './TimelinePenLine';

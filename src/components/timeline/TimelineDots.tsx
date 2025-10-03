@@ -52,6 +52,7 @@ export function TimelineDots({
     <nav
       className={cn(
         'timeline-dots flex items-center justify-center gap-6 md:gap-10 mb-8 md:mb-12',
+        'relative z-10', // Above pen line (pen line is z-0)
         className
       )}
       aria-label="Timeline navigation"
@@ -63,7 +64,7 @@ export function TimelineDots({
         const Icon = typeof phase.icon === 'string' ? null : phase.icon;
 
         return (
-          <div key={phase.id} className="relative group">
+          <div key={phase.id} className="relative group z-10">
             {/* Tooltip */}
             <div
               className={cn(
@@ -81,13 +82,30 @@ export function TimelineDots({
               </div>
             </div>
 
+            {/* White circle mask to hide line behind dot */}
+            <div
+              className={cn(
+                'absolute rounded-full bg-background transition-all duration-300',
+                isActive
+                  ? 'w-16 h-16 md:w-18 md:h-18'
+                  : 'w-14 h-14 md:w-16 md:h-16'
+              )}
+              style={{
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 0, // Behind the button
+              }}
+            />
+
             {/* Dot Button with Icon */}
             <motion.button
               onClick={() => onDotClick(index)}
               className={cn(
-                'relative rounded-full transition-all duration-300 flex items-center justify-center',
+                'relative rounded-full bg-white transition-all duration-300 flex items-center justify-center',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
                 'hover:scale-110',
+                'z-10', // Above the mask
                 isActive
                   ? 'w-12 h-12 md:w-14 md:h-14'
                   : 'w-10 h-10 md:w-12 md:h-12'
@@ -122,7 +140,7 @@ export function TimelineDots({
                           : 'w-5 h-5 md:w-6 md:h-6 text-gray-400'
                     )}
                   />
-                ) : (
+                ) : typeof phase.icon === 'string' ? (
                   <span
                     className={cn(
                       'text-2xl transition-all duration-300',
@@ -131,7 +149,7 @@ export function TimelineDots({
                   >
                     {phase.icon}
                   </span>
-                )}
+                ) : null}
               </div>
             </motion.button>
           </div>
