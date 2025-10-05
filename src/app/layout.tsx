@@ -3,6 +3,7 @@ import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
 import { organizationSchema } from "@/lib/structuredData";
 import { Header } from "@/components/sections";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -69,6 +70,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

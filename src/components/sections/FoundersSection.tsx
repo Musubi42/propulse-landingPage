@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FadeIn, ScaleIn, PenLine } from '@/components/animations';
+import { FadeIn, ScaleIn, PenLine, PenUnderline } from '@/components/animations';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -72,22 +72,55 @@ export function FoundersSection() {
     <>
       {/* <PolymorphDivider variant="wave1" flip color="rgb(250, 246, 240)" /> */}
 
-      <section className="py-20 bg-background">
+      <section className="py-14 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <FadeIn direction="up" delay={0.1}>
-              <h2 className="text-foreground mb-6">
+              <h2 className="text-foreground mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 L&apos;histoire derrière{' '}
                 <span className="relative inline-block">
                   <span className="relative z-10">Propulse</span>
-                  <div className="absolute -bottom-2 left-0 w-full">
-                    <PenLine
-                      variant="underline"
-                      width={180}
-                      color="rgb(217, 118, 66)"
-                      delay={0.5}
-                    />
+                  <div className="absolute -bottom-4 left-0 w-full">
+                      {/* Desktop PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={250}
+                        height={42}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.5}
+                        className="hidden xl:block"
+                      />
+                      <PenLine
+                        variant="underline"
+                        width={202}
+                        height={40}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.5}
+                        className="hidden lg:block xl:hidden"
+                      />
+                      {/* Tablet PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={150}
+                        height={42}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.5}
+                        className="hidden md:block lg:hidden"
+                      />
+                      {/* Mobile PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={128}
+                        height={42}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.5}
+                        className="md:hidden"
+                      />
                   </div>
                 </span>
               </h2>
@@ -326,7 +359,7 @@ export function FoundersSection() {
           <FadeIn direction="up" delay={0.7}>
             <div className="text-center mb-16 pt-8 border-t border-border max-w-4xl mx-auto">
               <blockquote className="text-4xl md:text-5xl lg:text-6xl font-bold italic text-accent mb-6">
-                &ldquo;Fonce, tu en es capable !&rdquo;
+                &ldquo;<PenUnderline color="#D97642" delay={1.4} strokeWidth={2} padding={0}>Fonce</PenUnderline>, tu en es capable !&rdquo;
               </blockquote>
               <p className="text-lg text-text-secondary max-w-2xl mx-auto">
                 C&apos;est cette phrase qui a changé nos vies. C&apos;est cette même phrase

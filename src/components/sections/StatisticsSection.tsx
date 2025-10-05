@@ -100,7 +100,7 @@ export function StatisticsSection() {
             <div className="text-center bg-background-secondary rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
               <h3 className="text-foreground mb-4">
                 Ces inégalités ne sont{' '}
-                <PenUnderline color="#D97642" delay={1.2} strokeWidth={3}>
+                <PenUnderline color="#D97642" delay={1.2} strokeWidth={3} padding={-2}>
                   <span className="text-accent">pas une fatalité</span>
                 </PenUnderline>
               </h3>

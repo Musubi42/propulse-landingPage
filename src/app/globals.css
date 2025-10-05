@@ -42,6 +42,10 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* Custom Propulse colors for Tailwind v4 */
+  --color-tertiary: var(--background-tertiary);
+  --color-navy: var(--primary);
+
   /* Infinite Moving Cards Animation */
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 

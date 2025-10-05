@@ -50,13 +50,51 @@ export function SolutionSection() {
                 Un accompagnement{' '}
                 <span className="relative inline-block">
                   <span className="relative z-10">complet et gratuit</span>
-                  <div className="absolute -bottom-4 left-0 w-full">
-                    <PenLine
+                  <div className="absolute -bottom-1 left-0 w-full">
+                    {/* <PenLine
                       variant="underline"
                       width={410}
                       color="rgb(74, 107, 82)"
                       delay={0.6}
-                    />
+                    /> */}
+                    <PenLine
+                        variant="underline"
+                        width={430}
+                        height={40}
+                        strokeWidth={2}
+                        color="rgb(74, 107, 82)"
+                        delay={0.8}
+                        className="hidden xg:block"
+                      />
+                      <PenLine
+                        variant="underline"
+                        width={404}
+                        height={15}
+                        strokeWidth={2}
+                        color="rgb(74, 107, 82)"
+                        delay={0.8}
+                        className="hidden lg:block"
+                      />
+                      {/* Tablet PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={303}
+                        height={15}
+                        strokeWidth={2}
+                        color="rgb(74, 107, 82)"
+                        delay={0.8}
+                        className="hidden md:block lg:hidden"
+                      />
+                      {/* Mobile PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={253}
+                        height={15}
+                        strokeWidth={2}
+                        color="rgb(74, 107, 82)"
+                        delay={0.8}
+                        className="md:hidden"
+                      />
                   </div>
                 </span>
               </h2>

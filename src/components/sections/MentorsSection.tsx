@@ -1,48 +1,10 @@
 'use client';
 
-import { FadeIn, ScaleIn, PolymorphDivider } from '@/components/animations';
+import { FadeIn, ScaleIn, InfiniteMovingCards } from '@/components/animations';
 import { GraduationCap, Sparkles } from 'lucide-react';
+import { schoolLogos } from '@/data/schools';
 
 export function MentorsSection() {
-  const mentors = [
-    {
-      school: 'HEC Paris',
-      emoji: '🎓',
-      color: 'primary',
-      count: 12,
-    },
-    {
-      school: 'ESSEC',
-      emoji: '📚',
-      color: 'secondary',
-      count: 8,
-    },
-    {
-      school: 'EDHEC',
-      emoji: '💼',
-      color: 'accent',
-      count: 10,
-    },
-    {
-      school: 'Dauphine',
-      emoji: '🏛️',
-      color: 'primary',
-      count: 9,
-    },
-    {
-      school: 'EM Lyon',
-      emoji: '🦁',
-      color: 'secondary',
-      count: 7,
-    },
-    {
-      school: 'ESCP',
-      emoji: '🌍',
-      color: 'accent',
-      count: 6,
-    },
-  ];
-
   const testimonials = [
     {
       text: "Accompagner des lycéens motivés, c'est redonner ce que j'ai reçu. Voir leur progression et leur confiance grandir, c'est ma plus belle récompense.",
@@ -87,23 +49,14 @@ export function MentorsSection() {
             </FadeIn>
           </div>
 
-          {/* Schools Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16 max-w-6xl mx-auto">
-            {mentors.map((mentor, index) => (
-              <ScaleIn key={mentor.school} delay={0.4 + index * 0.1}>
-                <div className="bg-background rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 group">
-                  <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                    {mentor.emoji}
-                  </div>
-                  <h4 className="font-bold text-foreground text-sm mb-2">
-                    {mentor.school}
-                  </h4>
-                  <p className={`text-xs text-${mentor.color} font-medium`}>
-                    {mentor.count} mentors
-                  </p>
-                </div>
-              </ScaleIn>
-            ))}
+          {/* Schools Carousel */}
+          <div className="mb-16">
+            <InfiniteMovingCards
+              items={schoolLogos}
+              direction="left"
+              speed="normal"
+              pauseOnHover={true}
+            />
           </div>
 
           {/* Testimonials */}

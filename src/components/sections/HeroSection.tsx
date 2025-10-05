@@ -1,7 +1,8 @@
 'use client';
 
 import { FadeIn, PenLine, PenDrawnCircle, PenUnderline } from '@/components/animations';
-import { ArrowDown, GraduationCap, Users, Building2 } from 'lucide-react';
+import { TriadCTAButtons } from '@/components/ui/TriadCTAButtons';
+import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 
 export function HeroSection() {
@@ -13,14 +14,46 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative max-h-[70vh] flex items-center justify-center bg-[#EBE3D5]">
-      <div className="container mx-auto px-4 py-20 md:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Column - Content */}
-          <div className="space-b-2">
+    <section className="relative bg-[#EBE3D5] pt-20 lg:pt-0">
+      {/* Mobile & Tablet: Image at top (50vh) */}
+      <div className="lg:hidden w-full h-auto relative">
+        <FadeIn direction="down" delay={0.2}>
+          <div className="relative inset-0 flex items-center justify-center">
+            <div className="relative w-auto h-auto md:w-[350px] md:h-[350px]">
+              {/* Subtle glow effect behind */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl"></div>
+
+              {/* Pen-drawn circle */}
+              <PenDrawnCircle
+                size={350}
+                strokeWidth={3}
+                strokeColor="#3D3D3D"
+                animate={true}
+                animationDuration={2000}
+                padding={10}
+                className="drop-shadow-2xl"
+              >
+                <Image
+                  src="/images/placeholders/hero.jpg"
+                  alt="Mentor et lycéen travaillant ensemble - Propulse Association"
+                  fill
+                  className="object-cover"
+                  sizes="90vw"
+                  priority
+                />
+              </PenDrawnCircle>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+
+      <div className="container mx-auto px-4 py-8 md:py-12 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Content */}
+          <div className="space-y-4 md:space-y-6">
             <FadeIn direction="up" delay={0.1}>
               <div className="inline-block">
-                <span className="inline-block py-2 bg-accent/10 text-accent font-medium rounded-full text-sm">
+                <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-accent/10 text-accent font-medium rounded-full text-xs md:text-sm">
                   100% gratuit • 100% à distance
                 </span>
               </div>
@@ -28,16 +61,49 @@ export function HeroSection() {
 
             <FadeIn direction="up" delay={0.2}>
               <div>
-                <h1 className="text-foreground leading-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
                   Propulse ton avenir vers les{' '}
                   <span className="relative inline-block">
                     <span className="relative z-10">Grandes Écoles</span>
-                    <div className="absolute -bottom-2 left-0 w-full">
+                    <div className="absolute -bottom-1 md:-bottom-2 left-0 w-full">
+                      {/* Desktop PenLine */}
                       <PenLine
                         variant="underline"
-                        width={300}
+                        width={430}
+                        height={40}
+                        strokeWidth={2}
                         color="rgb(217, 118, 66)"
                         delay={0.8}
+                        className="hidden xl:block"
+                      />
+                      <PenLine
+                        variant="underline"
+                        width={340}
+                        height={40}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.8}
+                        className="hidden lg:block xl:hidden"
+                      />
+                      {/* Tablet PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={260}
+                        height={30}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.8}
+                        className="hidden md:block lg:hidden"
+                      />
+                      {/* Mobile PenLine */}
+                      <PenLine
+                        variant="underline"
+                        width={217}
+                        height={20}
+                        strokeWidth={2}
+                        color="rgb(217, 118, 66)"
+                        delay={0.8}
+                        className="md:hidden"
                       />
                     </div>
                   </span>
@@ -46,66 +112,33 @@ export function HeroSection() {
             </FadeIn>
 
             <FadeIn direction="up" delay={0.4}>
-              <p className="text-xl text-text-secondary leading-relaxed max-w-xl">
+              <p className="text-sm md:text-base lg:text-lg text-text-secondary leading-relaxed max-w-xl">
                 Un accompagnement gratuit et à distance pour les lycéens motivés.
                 Rejoins un réseau de mentors étudiants et alumni des Grandes Écoles.
               </p>
             </FadeIn>
 
-            {/* Fonce Tagline */}
+            {/* Fonce Tagline - Mobile: one line */}
             <FadeIn direction="up" delay={0.5}>
-              <div className="mt-20">
-                <p className="text-3xl md:text-4xl font-bold italic text-accent">
-                  &ldquo;<PenUnderline color="#D97642" delay={1.4} strokeWidth={3}>Fonce</PenUnderline>, tu en es capable !&rdquo;
+              <div className="mt-4 md:mt-8 lg:mt-12">
+                <p className="text-base md:text-2xl lg:text-3xl xl:text-4xl font-bold italic text-accent">
+                  &ldquo;<PenUnderline color="#D97642" delay={1.4} strokeWidth={2} padding={-4}>Fonce</PenUnderline>, tu en es capable !&rdquo;
                 </p>
               </div>
             </FadeIn>
 
-            {/* CTA Buttons - Three Equal Audience Options */}
-            <FadeIn direction="up" delay={0.7}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-                {/* Lycéen CTA - Blue */}
-                <a
-                  href="#"
-                  className="group relative inline-flex flex-col items-center justify-center px-6 py-5 bg-[rgb(var(--lyceen-primary))] text-white font-semibold rounded-xl hover:bg-[rgb(var(--lyceen-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"
-                >
-                  <GraduationCap className="w-8 h-8 mb-2" />
-                  <span className="text-lg">Lycéen</span>
-                  <span className="text-sm font-normal opacity-90 mt-1">Je m&apos;inscris</span>
-                </a>
-
-                {/* Mentor CTA - Orange */}
-                <a
-                  href="#"
-                  className="group relative inline-flex flex-col items-center justify-center px-6 py-5 bg-[rgb(var(--mentor-primary))] text-white font-semibold rounded-xl hover:bg-[rgb(var(--mentor-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"
-                >
-                  <Users className="w-8 h-8 mb-2" />
-                  <span className="text-lg">Mentor</span>
-                  <span className="text-sm font-normal opacity-90 mt-1">Je participe</span>
-                </a>
-
-                {/* Lycée CTA - Green */}
-                <a
-                  href="#"
-                  className="group relative inline-flex flex-col items-center justify-center px-6 py-5 bg-[rgb(var(--lycee-primary))] text-white font-semibold rounded-xl hover:bg-[rgb(var(--lycee-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden sm:col-span-2 lg:col-span-1"
-                >
-                  <Building2 className="w-8 h-8 mb-2" />
-                  <span className="text-lg">Lycée</span>
-                  <span className="text-sm font-normal opacity-90 mt-1">Partenariat</span>
-                </a>
-              </div>
-            </FadeIn>
+            {/* CTA Buttons */}
+            <TriadCTAButtons delay={0.7} />
           </div>
 
-          {/* Right Column - Visual Placeholder */}
+          {/* Desktop: Image on right */}
           <FadeIn direction="right" delay={0.3}>
-            <div className="relative">
-              {/* Pen-Drawn Circle Container */}
+            <div className="relative hidden lg:block">
               <div className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
                 {/* Subtle glow effect behind */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl"></div>
+                <div className="relative inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl"></div>
 
-                {/* Pen-drawn circle with Rough Notation: circle animates, then image fades in */}
+                {/* Pen-drawn circle */}
                 <PenDrawnCircle
                   size={450}
                   strokeWidth={3}
@@ -120,7 +153,7 @@ export function HeroSection() {
                     alt="Mentor et lycéen travaillant ensemble - Propulse Association"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="50vw"
                     priority
                   />
                 </PenDrawnCircle>

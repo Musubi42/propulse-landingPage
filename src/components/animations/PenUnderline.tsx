@@ -8,6 +8,7 @@ interface PenUnderlineProps {
   children: React.ReactNode;
   color?: string;
   strokeWidth?: number;
+  padding?: number;
   delay?: number;
   animationDuration?: number;
   /** Multi-line underline */
@@ -26,6 +27,7 @@ export function PenUnderline({
   children,
   color = '#3D3D3D',
   strokeWidth = 2,
+  padding= 0,
   delay = 0,
   animationDuration = 800,
   multiline = false,
@@ -40,10 +42,15 @@ export function PenUnderline({
     if (!elementRef || !inView) return;
 
     const timeout = setTimeout(() => {
+      // Double padding for viewports wider than 768px
+      const isWideViewport = window.innerWidth >= 768;
+      const adjustedPadding = isWideViewport ? padding * 2 : padding;
+
       const annotation = annotate(elementRef, {
         type: 'underline',
         color,
         strokeWidth,
+        padding: adjustedPadding,
         animationDuration,
         multiline,
       });
@@ -51,7 +58,7 @@ export function PenUnderline({
     }, delay * 1000);
 
     return () => clearTimeout(timeout);
-  }, [elementRef, inView, color, strokeWidth, delay, animationDuration, multiline]);
+  }, [elementRef, inView, color, strokeWidth, padding, delay, animationDuration, multiline]);
 
   return (
     <span
