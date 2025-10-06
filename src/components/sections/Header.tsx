@@ -26,7 +26,7 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky h-[80px] top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
           ? 'bg-[#EBE3D5]/75 backdrop-blur-3xl shadow-sm'
           : 'bg-[#EBE3D5]'
@@ -67,7 +67,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-[#2A2A2A] hover:text-[#D97642] transition-colors rounded-lg hover:bg-[#FAF6F0]"
+            className="absolute right-0 md:hidden p-2 text-[#2A2A2A] hover:text-[#D97642] transition-colors rounded-lg hover:bg-[#FAF6F0]"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

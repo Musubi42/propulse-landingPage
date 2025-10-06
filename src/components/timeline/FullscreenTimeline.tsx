@@ -39,6 +39,7 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
   const [currentPhase, setCurrentPhase] = useState(0);
   const [lineProgress, setLineProgress] = useState(0); // Continuous progress for line (0-1)
   const scrollTweenRef = useRef<gsap.core.Tween | null>(null);
+  const isProgrammaticScrollRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current || !cardsRef.current) return;
@@ -51,7 +52,7 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
     const viewportWidth = window.innerWidth;
     const scrollDistance = totalWidth - viewportWidth;
 
-    // Create GSAP horizontal scroll animation
+    // Create GSAP horizontal scroll animation with built-in snap
     scrollTweenRef.current = gsap.to(cards, {
       x: -scrollDistance,
       ease: 'none',
@@ -59,17 +60,34 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
         trigger: container,
         start: 'top top',
         end: () => `+=${totalWidth}`, // Scroll distance = total width
-        scrub: 0.5, // Smooth scrubbing (1 second lag)
+        scrub: 1, // Smooth scrubbing - required for snap to work properly
         pin: true, // Pin the container
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        // GSAP's built-in snap feature - velocity-based, instant response
+        snap: {
+          snapTo: (progress: number) => {
+            // Don't snap during programmatic navigation (dot clicks)
+            if (isProgrammaticScrollRef.current) {
+              return progress; // Return current progress = no snap
+            }
+            // Normal snap behavior: snap to nearest card center
+            const snapValue = 1 / (phases.length - 1);
+            return Math.round(progress / snapValue) * snapValue;
+          },
+          duration: { min: 0.2, max: 0.5 }, // Adaptive duration based on distance
+          delay: 0.05, // Very responsive - starts snap 50ms after scroll stops
+          ease: 'power2.inOut',
+        },
         onUpdate: (self) => {
           // Update current phase based on scroll progress
           const progress = self.progress;
 
           // Discrete phase for dots/UI
+          // Convert progress (0-1) to phase index using centered formula
+          const exactPhaseIndex = progress * (phases.length - 1);
           const newPhase = Math.min(
-            Math.floor(progress * phases.length),
+            Math.round(exactPhaseIndex), // Round to nearest for centered cards
             phases.length - 1
           );
           setCurrentPhase(newPhase);
@@ -95,31 +113,42 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
   const goToPhase = (index: number) => {
     if (!scrollTweenRef.current?.scrollTrigger) return;
 
-    const progress = index / (phases.length - 1);
     const scrollTrigger = scrollTweenRef.current.scrollTrigger;
 
+    // Calculate progress to center the card
+    // Progress formula: index / (phases.length - 1)
+    // This ensures: phase 0 = 0%, last phase = 100%
+    const progress = phases.length === 1 ? 0 : index / (phases.length - 1);
+
     // Calculate scroll position for this phase
-    const targetScroll = scrollTrigger.start + (scrollTrigger.end - scrollTrigger.start) * progress;
+    const scrollDistance = scrollTrigger.end - scrollTrigger.start;
+    const targetScroll = scrollTrigger.start + scrollDistance * progress;
+
+    // Set flag to prevent snap during programmatic navigation
+    isProgrammaticScrollRef.current = true;
 
     // Smooth scroll to target position
     gsap.to(window, {
       scrollTo: targetScroll,
       duration: 0.8,
       ease: 'power2.inOut',
+      onComplete: () => {
+        // Re-enable snap after a short delay (allow scroll to fully settle)
+        setTimeout(() => {
+          isProgrammaticScrollRef.current = false;
+        }, 100);
+      },
     });
   };
 
   return (
     <div
       ref={containerRef}
-      className={cn('fullscreen-timeline relative h-screen w-full overflow-hidden', className)}
+      className={cn('fullscreen-timeline -top-[80px] relative h-screen w-full overflow-hidden', className)}
     >
-      {/* Navigation Dots + Pen Line - Fixed position, below header (z-40, header is z-50) */}
-      <div className="fixed top-24 left-1/2 -translate-x-1/2 z-40">
-        {/* Combined container ensures dots and line use same positioning */}
+      <div className="fixed top-24 md:top-24 left-1/2 -translate-x-1/2 z-40 scale-75 md:scale-90 lg:scale-100">
         <div className="relative">
-          {/* Pen Line - BEHIND dots (z-0) */}
-          <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0">
+          <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 z-10">
             <TimelinePenLine
               totalPhases={phases.length}
               currentPhase={currentPhase}
@@ -127,7 +156,6 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
             />
           </div>
 
-          {/* Dots - ABOVE line (z-10) */}
           <div className="relative z-10">
             <TimelineDots
               phases={phases}
@@ -151,22 +179,23 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
           return (
             <div
               key={phase.id}
-              className="phase-card h-full w-screen flex items-center justify-center px-8 md:px-16"
+              className="phase-card h-full w-screen flex items-center justify-center px-4 md:px-8 lg:px-16"
             >
               <div
                 className={cn(
-                  'card-content max-w-3xl w-full bg-white rounded-2xl shadow-2xl p-8 md:p-12',
-                  'border-2 transition-all duration-300',
+                  'card-content max-w-3xl w-full bg-white rounded-xl md:rounded-2xl shadow-2xl',
+                  'p-5 md:p-8 lg:p-5 border-2 transition-all duration-300',
                   colors.border,
-                  index === currentPhase && 'scale-105'
+                  index === currentPhase && 'md:scale-105'
                 )}
               >
-                {/* Header */}
-                <div className="flex items-start justify-between gap-4 mb-6">
+                {/* Header - Responsive badge and duration */}
+                <div className="flex items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
                   <div
                     className={cn(
-                      'w-14 h-14 rounded-full flex items-center justify-center',
-                      'text-black font-bold text-xl shadow-md',
+                      'w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full',
+                      'flex items-center justify-center text-black font-bold',
+                      'text-base md:text-lg lg:text-xl shadow-md',
                       colors.bg
                     )}
                   >
@@ -174,7 +203,7 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
                   </div>
                   <span
                     className={cn(
-                      'text-sm font-semibold px-4 py-2 rounded-full',
+                      'text-xs md:text-sm font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-full',
                       colors.text,
                       colors.bgLight
                     )}
@@ -183,50 +212,50 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
                   </span>
                 </div>
 
-                {/* Icon + Title */}
-                <div className="flex items-start gap-6 mb-6">
+                {/* Icon + Title - Responsive layout */}
+                <div className="flex items-start gap-3 md:gap-4 lg:gap-6 mb-2 md:mb-4">
                   {Icon ? (
-                    <Icon className={cn('w-14 h-14 flex-shrink-0', colors.text)} />
+                    <Icon className={cn('w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 flex-shrink-0', colors.text)} />
                   ) : typeof phase.icon === 'string' ? (
-                    <span className="text-5xl">{phase.icon}</span>
+                    <span className="text-2xl md:text-3xl lg:text-4xl">{phase.icon}</span>
                   ) : null}
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                  <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-foreground leading-tight">
                     {phase.title}
                   </h2>
                 </div>
 
-                {/* Brief */}
-                <p className="text-lg text-text-secondary mb-8 leading-relaxed">
+                {/* Brief - Responsive text */}
+                <p className="text-sm md:text-base lg:text-md text-text-secondary mb-2 md:mb-3 lg:mb-4 leading-relaxed">
                   {phase.brief}
                 </p>
 
-                {/* Details */}
-                <div className="space-y-6">
-                  <div className="pt-6 border-t border-gray-200">
-                    <p className="text-text-secondary leading-relaxed">
+                {/* Details - Responsive spacing and text */}
+                <div className="space-y-4 md:space-y-5 lg:space-y-3">
+                  <div className="pt-4 md:pt-5 lg:pt-6 border-t border-gray-200">
+                    <p className="text-sm text-text-secondary leading-relaxed">
                       {phase.details.description}
                     </p>
                   </div>
 
-                  {/* Activities */}
+                  {/* Activities - Responsive spacing */}
                   <div>
-                    <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                      <span className={cn('w-1 h-6 rounded-full', colors.bg)} />
+                    <h3 className="text-sm md:text-base font-semibold text-foreground mb-3 md:mb-4 flex items-center gap-2">
+                      <span className={cn('w-1 h-5 md:h-6 rounded-full', colors.bg)} />
                       Activités et contenus
                     </h3>
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 md:space-y-2.5 lg:space-y-3">
                       {phase.details.activities.map((activity, idx) => (
                         <li
                           key={idx}
-                          className="flex items-start gap-3 text-text-secondary"
+                          className="flex items-start gap-0 md:gap-3 text-sm md:text-sm text-text-secondary"
                         >
                           <span
                             className={cn(
-                              'flex-shrink-0 w-2 h-2 rounded-full mt-2',
+                              'flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full mt-1.5 md:mt-2',
                               colors.bg
                             )}
                           />
-                          <span className="leading-relaxed">{activity}</span>
+                          <span className="leading-5">{activity}</span>
                         </li>
                       ))}
                     </ul>
@@ -238,19 +267,19 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
         })}
       </div>
 
-      {/* Progress indicator - z-40 (below header z-50) */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40">
-        <div className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
-          <span className="text-sm font-medium text-text-secondary">
+      {/* Progress indicator - Responsive sizing and positioning */}
+      <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-40">
+        <div className="bg-white/90 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg">
+          <span className="text-xs md:text-sm font-medium text-text-secondary">
             Phase {currentPhase + 1} / {phases.length}
           </span>
         </div>
       </div>
 
-      {/* Scroll hint (only on first phase) */}
+      {/* Scroll hint (only on first phase) - Responsive */}
       {currentPhase === 0 && (
-        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 animate-bounce">
-          <div className="text-center text-sm text-text-secondary/70">
+        <div className="fixed bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 z-40 animate-bounce">
+          <div className="text-center text-xs md:text-sm text-text-secondary/70">
             <p>Faites défiler pour naviguer</p>
             <p className="text-xs mt-1">↓</p>
           </div>

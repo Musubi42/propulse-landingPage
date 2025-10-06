@@ -8,6 +8,8 @@
  */
 
 import { motion, type Variants } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 import type { TimelineDotsProps } from './types';
 
@@ -29,12 +31,82 @@ const dotPulseVariants: Variants = {
 };
 
 /**
+ * Tooltip Component with Portal
+ * Renders tooltip in body to ensure it's above all other elements (including header)
+ */
+function TooltipPortal({
+  children,
+  targetRef,
+  isVisible
+}: {
+  children: React.ReactNode;
+  targetRef: React.RefObject<HTMLDivElement | null>;
+  isVisible: boolean;
+}) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || !targetRef.current) return;
+
+    const updatePosition = () => {
+      if (!targetRef.current) return;
+      const rect = targetRef.current.getBoundingClientRect();
+      setPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top - 8, // 8px above the dot (mb-2 = 8px)
+      });
+    };
+
+    updatePosition();
+
+    // Update position on scroll/resize
+    window.addEventListener('scroll', updatePosition, true);
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      window.removeEventListener('scroll', updatePosition, true);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [isVisible, targetRef]);
+
+  if (!mounted || typeof window === 'undefined') return null;
+
+  return createPortal(
+    <div
+      className={cn(
+        'fixed bg-gray-900 text-white text-xs font-medium px-3 py-1.5 rounded',
+        'transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-lg',
+        isVisible ? 'opacity-100' : 'opacity-0'
+      )}
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        transform: 'translate(-50%, -100%)',
+        zIndex: 9999, // Above everything, including header (z-50)
+      }}
+    >
+      {children}
+      {/* Tooltip arrow */}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px">
+        <div className="border-4 border-transparent border-t-gray-900" />
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+/**
  * TimelineDots Component
  *
  * Renders navigation dots for each phase with:
  * - Active state highlighting
  * - Click navigation
- * - Hover tooltips
+ * - Hover tooltips (portal-based, above all elements)
  * - Keyboard accessibility
  */
 export function TimelineDots({
@@ -47,6 +119,11 @@ export function TimelineDots({
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Create refs for each dot (outside map to comply with hooks rules)
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   return (
     <nav
@@ -64,23 +141,22 @@ export function TimelineDots({
         const Icon = typeof phase.icon === 'string' ? null : phase.icon;
 
         return (
-          <div key={phase.id} className="relative group z-10">
-            {/* Tooltip */}
-            <div
-              className={cn(
-                'absolute bottom-full left-1/2 -translate-x-1/2 mb-2',
-                'bg-gray-900 text-white text-xs font-medium px-3 py-1.5 rounded',
-                'opacity-0 group-hover:opacity-100 transition-opacity duration-200',
-                'pointer-events-none whitespace-nowrap z-10',
-                'shadow-lg'
-              )}
+          <div
+            key={phase.id}
+            ref={(el) => {
+              dotRefs.current[index] = el;
+            }}
+            className="relative z-10"
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {/* Portal Tooltip - Rendered in body, above everything */}
+            <TooltipPortal
+              targetRef={{ current: dotRefs.current[index] }}
+              isVisible={hoveredIndex === index}
             >
               {phase.title}
-              {/* Tooltip arrow */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px">
-                <div className="border-4 border-transparent border-t-gray-900" />
-              </div>
-            </div>
+            </TooltipPortal>
 
             {/* White circle mask to hide line behind dot */}
             <div
