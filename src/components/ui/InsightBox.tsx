@@ -35,19 +35,20 @@ export function InsightBox({
 
   return (
     <div
-      className={`${bgColors[variant]} p-6 rounded-xl border-l-4 mt-6 ${className}`}
+      className={`${bgColors[variant]} p-4 md:p-6 rounded-xl border-l-4 mt-6 ${className}`}
     >
-      <div className="flex items-start gap-3">
-        <Info className={`w-5 h-5 ${iconColors[variant]} flex-shrink-0 mt-0.5`} />
+      <div className="flex items-start gap-2 md:gap-3">
+        {/* Icon hidden on mobile (< 768px) for better space usage */}
+        <Info className={`hidden md:block w-5 h-5 ${iconColors[variant]} flex-shrink-0 mt-0.5`} />
         <div className="flex-1">
-          <h4 className={`font-bold ${titleColors[variant]} mb-3 text-base`}>
+          <h4 className={`font-bold ${titleColors[variant]} mb-2 md:mb-3 text-sm md:text-base`}>
             📌 À retenir
           </h4>
-          <ul className="space-y-2">
+          <ul className="space-y-1.5 md:space-y-2">
             {insights.map((insight, index) => (
               <li
                 key={index}
-                className="text-sm text-text-secondary leading-relaxed"
+                className="text-xs md:text-sm text-text-secondary leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: insight }}
               />
             ))}

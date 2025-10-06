@@ -6,16 +6,23 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { bacProData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions, formatNumber } from '@/lib/chart-config';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 /**
  * BAC Pro Barrier Chart
  * Funnel-style visualization showing drastic access gap by BAC type
  * Implemented as horizontal bars with varying widths
+ * Mobile-optimized with inset chart moved below and smaller fonts
  */
 export function BacProBarrierChart() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  // Mobile-friendly abbreviated labels
+  const mobileLabels = ['Gén.', 'Tech.', 'Pro'];
+  const desktopLabels = bacProData.funnelRates.map(item => item.type);
   // Main funnel data (enrollment rates)
   const funnelData = {
-    labels: bacProData.funnelRates.map(item => item.type),
+    labels: isMobile ? mobileLabels : desktopLabels,
     datasets: [
       {
         label: 'Taux d\'accès CPGE (%)',
@@ -40,6 +47,11 @@ export function BacProBarrierChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          title: (tooltipItems: any[]) => {
+            // Show full BAC type name in tooltip even on mobile
+            const index = tooltipItems[0].dataIndex;
+            return bacProData.funnelRates[index].type;
+          },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const rate = context.parsed.x;
@@ -54,7 +66,7 @@ export function BacProBarrierChart() {
       datalabels: {
         display: true,
         color: '#ffffff',
-        font: { size: 14, weight: 'bold' as const },
+        font: { size: isMobile ? 11 : 14, weight: 'bold' as const },
         formatter: (value: number) => {
           return `${value.toFixed(1)}%`;
         },
@@ -63,7 +75,7 @@ export function BacProBarrierChart() {
       },
       annotation: {
         annotations: {
-          // Callout for BAC Pro
+          // Callout for BAC Pro - hide on mobile to reduce clutter
           bacProCallout: {
             type: 'label' as const,
             xValue: 5,
@@ -71,9 +83,10 @@ export function BacProBarrierChart() {
             content: ['100× moins de chances', 'que BAC Général'],
             backgroundColor: `${CHART_COLORS.bacPro}E6`,
             color: 'white',
-            font: { size: 11, weight: 'bold' as const },
-            padding: 6,
+            font: { size: isMobile ? 9 : 11, weight: 'bold' as const },
+            padding: isMobile ? 4 : 6,
             borderRadius: 4,
+            display: !isMobile, // Hide on mobile
           },
         },
       },
@@ -84,14 +97,14 @@ export function BacProBarrierChart() {
         max: 12,
         ticks: {
           callback: (value: number | string) => `${value}%`,
-          font: { size: 13 },
+          font: { size: isMobile ? 11 : 13 },
           color: CHART_COLORS.textSecondary,
         },
         grid: {
           color: CHART_COLORS.grid,
         },
         title: {
-          display: true,
+          display: !isMobile, // Hide on mobile to save space
           text: 'Taux d\'accès aux CPGE',
           font: { size: 14, weight: 'bold' as const },
           color: CHART_COLORS.text,
@@ -99,8 +112,11 @@ export function BacProBarrierChart() {
       },
       y: {
         ticks: {
-          font: { size: 14, weight: 'bold' as const },
+          font: { size: isMobile ? 10 : 14, weight: 'bold' as const },
           color: CHART_COLORS.text,
+          // Diagonal labels on mobile
+          maxRotation: isMobile ? 45 : 0,
+          minRotation: isMobile ? 45 : 0,
         },
         grid: {
           display: false,
@@ -110,8 +126,11 @@ export function BacProBarrierChart() {
   };
 
   // Inset bar chart data (absolute numbers)
+  const insetMobileLabels = ['Gén.', 'Tech.', 'Pro'];
+  const insetDesktopLabels = ['Général', 'Techno', 'Pro'];
+
   const absoluteData = {
-    labels: ['Général', 'Techno', 'Pro'],
+    labels: isMobile ? insetMobileLabels : insetDesktopLabels,
     datasets: [
       {
         label: 'Effectifs 2024',
@@ -138,6 +157,11 @@ export function BacProBarrierChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          title: (tooltipItems: any[]) => {
+            // Show full BAC type name in tooltip even on mobile
+            const index = tooltipItems[0].dataIndex;
+            return insetDesktopLabels[index];
+          },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const value = context.parsed.x;
@@ -149,7 +173,7 @@ export function BacProBarrierChart() {
       datalabels: {
         display: true,
         color: '#ffffff',
-        font: { size: 10, weight: 'bold' as const },
+        font: { size: isMobile ? 9 : 10, weight: 'bold' as const },
         formatter: (value: number) => {
           return formatNumber(value);
         },
@@ -163,7 +187,7 @@ export function BacProBarrierChart() {
       },
       y: {
         ticks: {
-          font: { size: 10 },
+          font: { size: isMobile ? 9 : 10 },
           color: CHART_COLORS.text,
         },
         grid: {
@@ -180,18 +204,37 @@ export function BacProBarrierChart() {
       source={bacProData.metadata.source}
       sourceUrl={bacProData.metadata.sourceUrl}
     >
-      <div className="relative">
+      {/* Desktop: relative positioning with inset chart */}
+      <div className="hidden md:block relative">
         {/* Main Funnel Chart */}
-        <div className="h-[350px] md:h-[400px]">
+        <div className="h-[400px]">
           <Bar data={funnelData} options={funnelOptions} />
         </div>
 
-        {/* Inset Bar Chart - Absolute Numbers */}
-        <div className="absolute bottom-4 right-4 w-48 md:w-56 h-32 md:h-40 bg-white/95 p-3 rounded-lg shadow-xl border-2 border-background-tertiary">
+        {/* Inset Bar Chart - Absolute Numbers (Desktop only - positioned absolutely) */}
+        <div className="absolute bottom-4 right-4 w-56 h-40 bg-white/95 p-3 rounded-lg shadow-xl border-2 border-background-tertiary">
           <p className="text-xs font-bold text-foreground mb-2 text-center">
             Effectifs réels en 2024
           </p>
           <div className="h-[calc(100%-24px)]">
+            <Bar data={absoluteData} options={insetOptions} />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile: stacked vertically */}
+      <div className="md:hidden space-y-4">
+        {/* Main Funnel Chart */}
+        <div className="h-[350px]">
+          <Bar data={funnelData} options={funnelOptions} />
+        </div>
+
+        {/* Inset Bar Chart - Below main chart on mobile */}
+        <div className="bg-background-secondary p-3 rounded-lg border-2 border-background-tertiary">
+          <p className="text-xs font-bold text-foreground mb-2 text-center">
+            Effectifs réels en 2024
+          </p>
+          <div className="h-32">
             <Bar data={absoluteData} options={insetOptions} />
           </div>
         </div>

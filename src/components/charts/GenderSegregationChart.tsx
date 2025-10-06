@@ -6,14 +6,22 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { genderSegregationData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions, formatNumber, calculateGap } from '@/lib/chart-config';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 /**
  * Gender Segregation Chart
  * 100% stacked horizontal bar chart showing gender distribution across CPGE fields
+ * Mobile-optimized with abbreviated labels and bottom legend
  */
 export function GenderSegregationChart() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  // Mobile-friendly abbreviated labels
+  const mobileLabels = ['Sc. ingé.', 'Éco.', 'Lettres', 'Agro-Véto'];
+  const desktopLabels = genderSegregationData.fields;
+
   const data = {
-    labels: genderSegregationData.fields,
+    labels: isMobile ? mobileLabels : desktopLabels,
     datasets: [
       {
         label: 'Femmes',
@@ -42,18 +50,23 @@ export function GenderSegregationChart() {
       ...defaultChartOptions.plugins,
       legend: {
         ...defaultChartOptions.plugins?.legend,
-        position: 'top' as const,
+        position: isMobile ? ('bottom' as const) : ('top' as const),
         align: 'center' as const,
         labels: {
-          font: { size: 14, weight: 'bold' as const },
-          boxWidth: 20,
-          padding: 15,
+          font: { size: isMobile ? 11 : 14, weight: 'bold' as const },
+          boxWidth: isMobile ? 15 : 20,
+          padding: isMobile ? 8 : 15,
           color: CHART_COLORS.text,
         },
       },
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          title: (tooltipItems: any[]) => {
+            // Show full field name in tooltip even on mobile
+            const index = tooltipItems[0].dataIndex;
+            return genderSegregationData.fields[index];
+          },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const percent = context.parsed.x;
@@ -74,13 +87,15 @@ export function GenderSegregationChart() {
       datalabels: {
         display: true,
         color: '#ffffff',
-        font: { size: 13, weight: 'bold' as const },
+        font: { size: isMobile ? 10 : 13, weight: 'bold' as const },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (value: number, context: any) => {
           const absolute = context.dataset.absoluteData[context.dataIndex];
           const percent = value.toFixed(1);
           // Only show label if segment is wide enough (>15%)
-          return value > 15 ? `${formatNumber(absolute)}\n(${percent}%)` : '';
+          // On mobile, show only percentage to save space
+          if (value <= 15) return '';
+          return isMobile ? `${percent}%` : `${formatNumber(absolute)}\n(${percent}%)`;
         },
         anchor: 'center' as const,
         align: 'center' as const,
@@ -96,7 +111,7 @@ export function GenderSegregationChart() {
             borderWidth: 2,
             borderDash: [5, 5],
             label: {
-              display: true,
+              display: !isMobile, // Hide label on mobile to reduce clutter
               content: 'Parité (50%)',
               position: 'start' as const,
               yAdjust: -10,
@@ -117,7 +132,7 @@ export function GenderSegregationChart() {
         ticks: {
           callback: (value: number | string) => `${value}%`,
           stepSize: 20,
-          font: { size: 13 },
+          font: { size: isMobile ? 11 : 13 },
           color: CHART_COLORS.textSecondary,
         },
         grid: {
@@ -127,8 +142,11 @@ export function GenderSegregationChart() {
       y: {
         stacked: true,
         ticks: {
-          font: { size: 15, weight: 'bold' as const },
+          font: { size: isMobile ? 10 : 15, weight: 'bold' as const },
           color: CHART_COLORS.text,
+          // Diagonal labels on mobile
+          maxRotation: isMobile ? 45 : 0,
+          minRotation: isMobile ? 45 : 0,
         },
         grid: {
           display: false,

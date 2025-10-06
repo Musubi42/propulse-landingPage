@@ -6,14 +6,21 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { geographicData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions, formatNumber, calculateRatio } from '@/lib/chart-config';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 /**
  * Geographic Inequality Chart
  * Grouped horizontal bar chart comparing CPGE student distribution vs. population distribution by region
+ * Mobile-optimized with abbreviated labels and bottom legend
  */
 export function GeographicInequalityChart() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  // Mobile-friendly abbreviated labels
+  const mobileLabels = ['Île-de-Fr.', 'Cap. régionales', 'Reste France'];
+  const desktopLabels = geographicData.categories;
   const data = {
-    labels: geographicData.categories,
+    labels: isMobile ? mobileLabels : desktopLabels,
     datasets: [
       {
         label: 'Population française',
@@ -41,13 +48,23 @@ export function GeographicInequalityChart() {
       ...defaultChartOptions.plugins,
       legend: {
         ...defaultChartOptions.plugins?.legend,
-        position: 'top' as const,
-        align: 'end' as const,
+        position: isMobile ? ('bottom' as const) : ('top' as const),
+        align: isMobile ? ('center' as const) : ('end' as const),
+        labels: {
+          font: { size: isMobile ? 11 : 14 },
+          padding: isMobile ? 8 : 15,
+          boxWidth: isMobile ? 15 : 20,
+          color: CHART_COLORS.text,
+        },
       },
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          title: (tooltipItems: any[]) => {
+            // Show full region name in tooltip even on mobile
+            const index = tooltipItems[0].dataIndex;
+            return geographicData.categories[index];
+          },
           label: (context: any) => {
             const value = context.parsed.x;
             const absolute =
@@ -56,7 +73,6 @@ export function GeographicInequalityChart() {
                 : geographicData.cpge.absolute[context.dataIndex];
             return `${context.dataset.label}: ${value.toFixed(1)}% (${formatNumber(absolute)})`;
           },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           afterBody: (tooltipItems: any[]) => {
             const index = tooltipItems[0].dataIndex;
             const popPercent = geographicData.population.values[index];
@@ -73,14 +89,14 @@ export function GeographicInequalityChart() {
         max: 80,
         ticks: {
           callback: (value: number | string) => `${value}%`,
-          font: { size: 13 },
+          font: { size: isMobile ? 11 : 13 },
           color: CHART_COLORS.textSecondary,
         },
         grid: {
           color: CHART_COLORS.grid,
         },
         title: {
-          display: true,
+          display: !isMobile, // Hide on mobile to save space
           text: 'Pourcentage du total (%)',
           font: { size: 14, weight: 'bold' as const },
           color: CHART_COLORS.text,
@@ -91,8 +107,11 @@ export function GeographicInequalityChart() {
           display: false,
         },
         ticks: {
-          font: { size: 14 },
+          font: { size: isMobile ? 10 : 14 },
           color: CHART_COLORS.text,
+          // Diagonal labels on mobile
+          maxRotation: isMobile ? 45 : 0,
+          minRotation: isMobile ? 45 : 0,
         },
       },
     },
@@ -106,7 +125,7 @@ export function GeographicInequalityChart() {
       sourceUrl={geographicData.metadata.sourceUrl}
       footnote="* CPGE : Classes Préparatoires aux Grandes Écoles (classes de préparation intensive post-bac)"
     >
-      <div className="h-[300px] md:h-[400px]">
+      <div className="h-[350px] md:h-[400px]">
         <Bar data={data} options={options} />
       </div>
 

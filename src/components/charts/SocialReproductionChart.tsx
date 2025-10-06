@@ -6,13 +6,16 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { socialReproductionData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions } from '@/lib/chart-config';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 /**
  * Social Reproduction Chart
  * Multi-line chart showing CSP overrepresentation in CPGE (2007-2022)
  * with reference lines for national distribution
+ * Mobile-optimized with bottom legend and simplified annotations
  */
 export function SocialReproductionChart() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const data = {
     labels: socialReproductionData.years,
     datasets: [
@@ -21,61 +24,61 @@ export function SocialReproductionChart() {
         data: socialReproductionData.cpgeComposition.cadres,
         borderColor: CHART_COLORS.cadres,
         backgroundColor: `${CHART_COLORS.cadres}20`,
-        borderWidth: 3,
+        borderWidth: isMobile ? 2 : 3,
         tension: 0.3,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: isMobile ? 3 : 5,
+        pointHoverRadius: isMobile ? 5 : 7,
       },
       {
         label: 'Ouvriers',
         data: socialReproductionData.cpgeComposition.ouvriers,
         borderColor: CHART_COLORS.ouvriers,
         backgroundColor: `${CHART_COLORS.ouvriers}20`,
-        borderWidth: 3,
+        borderWidth: isMobile ? 2 : 3,
         tension: 0.3,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: isMobile ? 3 : 5,
+        pointHoverRadius: isMobile ? 5 : 7,
       },
       {
         label: 'Employés',
         data: socialReproductionData.cpgeComposition.employes,
         borderColor: CHART_COLORS.employes,
         backgroundColor: `${CHART_COLORS.employes}20`,
-        borderWidth: 2,
+        borderWidth: isMobile ? 1.5 : 2,
         tension: 0.3,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        pointRadius: isMobile ? 2 : 4,
+        pointHoverRadius: isMobile ? 4 : 6,
       },
       {
-        label: 'Professions intermédiaires',
+        label: isMobile ? 'Prof. inter.' : 'Professions intermédiaires',
         data: socialReproductionData.cpgeComposition.profInter,
         borderColor: CHART_COLORS.profInter,
         backgroundColor: `${CHART_COLORS.profInter}20`,
-        borderWidth: 2,
+        borderWidth: isMobile ? 1.5 : 2,
         tension: 0.3,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        pointRadius: isMobile ? 2 : 4,
+        pointHoverRadius: isMobile ? 4 : 6,
       },
       {
-        label: 'Agriculteurs/Artisans',
+        label: isMobile ? 'Agric./Artis.' : 'Agriculteurs/Artisans',
         data: socialReproductionData.cpgeComposition.agricArtisans,
         borderColor: CHART_COLORS.agricArtisans,
         backgroundColor: `${CHART_COLORS.agricArtisans}20`,
-        borderWidth: 2,
+        borderWidth: isMobile ? 1.5 : 2,
         tension: 0.3,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        pointRadius: isMobile ? 2 : 4,
+        pointHoverRadius: isMobile ? 4 : 6,
       },
       {
         label: 'Retraités',
         data: socialReproductionData.cpgeComposition.retraites,
         borderColor: CHART_COLORS.retraites,
         backgroundColor: `${CHART_COLORS.retraites}20`,
-        borderWidth: 2,
+        borderWidth: isMobile ? 1.5 : 2,
         borderDash: [5, 5],
         tension: 0.3,
-        pointRadius: 3,
-        pointHoverRadius: 5,
+        pointRadius: isMobile ? 2 : 3,
+        pointHoverRadius: isMobile ? 3 : 5,
       },
     ],
   };
@@ -96,12 +99,12 @@ export function SocialReproductionChart() {
       ...defaultChartOptions.plugins,
       legend: {
         ...defaultChartOptions.plugins?.legend,
-        position: 'right' as const,
-        align: 'start' as const,
+        position: isMobile ? ('bottom' as const) : ('right' as const),
+        align: isMobile ? ('center' as const) : ('start' as const),
         labels: {
-          font: { size: 12 },
-          boxWidth: 15,
-          padding: 10,
+          font: { size: isMobile ? 10 : 12 },
+          boxWidth: isMobile ? 12 : 15,
+          padding: isMobile ? 6 : 10,
           color: CHART_COLORS.text,
         },
       },
@@ -135,10 +138,10 @@ export function SocialReproductionChart() {
             yMin: socialReproductionData.nationalDistribution.cadres,
             yMax: socialReproductionData.nationalDistribution.cadres,
             borderColor: CHART_COLORS.cadres,
-            borderWidth: 2,
+            borderWidth: isMobile ? 1 : 2,
             borderDash: [5, 5],
             label: {
-              display: true,
+              display: !isMobile, // Hide on mobile to reduce clutter
               content: 'Repr. nationale: 17%',
               position: 'end' as const,
               backgroundColor: `${CHART_COLORS.cadres}CC`,
@@ -153,10 +156,10 @@ export function SocialReproductionChart() {
             yMin: socialReproductionData.nationalDistribution.employes,
             yMax: socialReproductionData.nationalDistribution.employes,
             borderColor: CHART_COLORS.employes,
-            borderWidth: 2,
+            borderWidth: isMobile ? 1 : 2,
             borderDash: [5, 5],
             label: {
-              display: true,
+              display: !isMobile,
               content: 'Repr. nationale: 24%',
               position: 'end' as const,
               backgroundColor: `${CHART_COLORS.employes}CC`,
@@ -171,10 +174,10 @@ export function SocialReproductionChart() {
             yMin: socialReproductionData.nationalDistribution.ouvriers,
             yMax: socialReproductionData.nationalDistribution.ouvriers,
             borderColor: CHART_COLORS.ouvriers,
-            borderWidth: 2,
+            borderWidth: isMobile ? 1 : 2,
             borderDash: [5, 5],
             label: {
-              display: true,
+              display: !isMobile,
               content: 'Repr. nationale: 18%',
               position: 'end' as const,
               backgroundColor: `${CHART_COLORS.ouvriers}CC`,
@@ -191,9 +194,10 @@ export function SocialReproductionChart() {
             content: ['Surreprésentation', 'massive ×3.1'],
             backgroundColor: `${CHART_COLORS.cadres}E6`,
             color: 'white',
-            font: { size: 11, weight: 'bold' as const },
-            padding: 6,
+            font: { size: isMobile ? 9 : 11, weight: 'bold' as const },
+            padding: isMobile ? 4 : 6,
             borderRadius: 4,
+            display: !isMobile, // Hide on mobile
           },
           // Callout: Stability
           stabilityBox: {
@@ -203,9 +207,10 @@ export function SocialReproductionChart() {
             content: ['L\'écart ne se réduit pas', 'Stabilité sur 15 ans'],
             backgroundColor: 'rgba(0, 0, 0, 0.75)',
             color: 'white',
-            font: { size: 12 },
-            padding: 8,
+            font: { size: isMobile ? 10 : 12 },
+            padding: isMobile ? 6 : 8,
             borderRadius: 6,
+            display: !isMobile, // Hide on mobile
           },
         },
       },
@@ -213,14 +218,16 @@ export function SocialReproductionChart() {
     scales: {
       x: {
         title: {
-          display: true,
+          display: !isMobile, // Hide on mobile to save space
           text: 'Année',
           font: { size: 14, weight: 'bold' as const },
           color: CHART_COLORS.text,
         },
         ticks: {
-          font: { size: 13 },
+          font: { size: isMobile ? 10 : 13 },
           color: CHART_COLORS.textSecondary,
+          // Show fewer ticks on mobile
+          maxTicksLimit: isMobile ? 6 : undefined,
         },
         grid: {
           color: CHART_COLORS.grid,
@@ -232,11 +239,11 @@ export function SocialReproductionChart() {
         ticks: {
           callback: (value: number | string) => `${value}%`,
           stepSize: 10,
-          font: { size: 13 },
+          font: { size: isMobile ? 10 : 13 },
           color: CHART_COLORS.textSecondary,
         },
         title: {
-          display: true,
+          display: !isMobile, // Hide on mobile to save space
           text: 'Pourcentage (%)',
           font: { size: 14, weight: 'bold' as const },
           color: CHART_COLORS.text,
