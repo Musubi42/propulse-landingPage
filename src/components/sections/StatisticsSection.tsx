@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeIn, ScaleIn, Counter, PolymorphDivider, PenUnderline } from '@/components/animations';
+import { FadeIn, ScaleIn, Counter, PenUnderline } from '@/components/animations';
 import { MapPin, Users2, GraduationCap } from 'lucide-react';
 
 export function StatisticsSection() {

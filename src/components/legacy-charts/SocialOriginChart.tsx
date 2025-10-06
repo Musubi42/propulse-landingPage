@@ -5,7 +5,6 @@ import {
   Pie,
   Cell,
   ResponsiveContainer,
-  Legend,
   Tooltip,
 } from 'recharts';
 import { socialOrigin, chartMetadata } from '@/data/statistics-data';
@@ -15,6 +14,7 @@ import { ChartCard } from '@/components/ui/ChartCard';
  * Custom Tooltip for Social Origin Chart
  * Shows comparison between Grandes Écoles % and General Population %
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload || !payload.length) return null;
 
@@ -44,6 +44,7 @@ const CustomTooltip = ({ active, payload }: any) => {
  * Custom Label for Donut Chart
  * Shows percentage inside the pie slices
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderLabel = (entry: any) => {
   return `${entry.grandesEcoles}%`;
 };

@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  Cell,
 } from 'recharts';
 import { geographicDistribution, chartMetadata } from '@/data/statistics-data';
 import { ChartCard } from '@/components/ui/ChartCard';
@@ -18,6 +17,7 @@ import { ChartCard } from '@/components/ui/ChartCard';
  * Custom Tooltip for Geographic Distribution Chart
  * Shows detailed comparison between student % and population %
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload || !payload.length) return null;
 

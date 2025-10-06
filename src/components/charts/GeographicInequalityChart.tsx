@@ -47,6 +47,7 @@ export function GeographicInequalityChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const value = context.parsed.x;
             const absolute =
@@ -55,6 +56,7 @@ export function GeographicInequalityChart() {
                 : geographicData.cpge.absolute[context.dataIndex];
             return `${context.dataset.label}: ${value.toFixed(1)}% (${formatNumber(absolute)})`;
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           afterBody: (tooltipItems: any[]) => {
             const index = tooltipItems[0].dataIndex;
             const popPercent = geographicData.population.values[index];
@@ -70,7 +72,7 @@ export function GeographicInequalityChart() {
         beginAtZero: true,
         max: 80,
         ticks: {
-          callback: (value: any) => `${value}%`,
+          callback: (value: number | string) => `${value}%`,
           font: { size: 13 },
           color: CHART_COLORS.textSecondary,
         },

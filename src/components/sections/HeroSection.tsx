@@ -2,16 +2,9 @@
 
 import { FadeIn, PenLine, PenDrawnCircle, PenUnderline } from '@/components/animations';
 import { TriadCTAButtons } from '@/components/ui/TriadCTAButtons';
-import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 
 export function HeroSection() {
-  const scrollToNext = () => {
-    const nextSection = document.getElementById('social-proof');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section className="relative bg-[#EBE3D5] pt-20 lg:pt-0">

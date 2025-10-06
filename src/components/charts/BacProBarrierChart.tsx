@@ -40,9 +40,9 @@ export function BacProBarrierChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const rate = context.parsed.x;
-            const bacType = context.label;
             const ratio = (10.1 / rate).toFixed(0);
             return [
               `Taux d'accès: ${rate.toFixed(1)}%`,
@@ -55,7 +55,7 @@ export function BacProBarrierChart() {
         display: true,
         color: '#ffffff',
         font: { size: 14, weight: 'bold' as const },
-        formatter: (value: number, context: any) => {
+        formatter: (value: number) => {
           return `${value.toFixed(1)}%`;
         },
         anchor: 'center' as const,
@@ -83,7 +83,7 @@ export function BacProBarrierChart() {
         beginAtZero: true,
         max: 12,
         ticks: {
-          callback: (value: any) => `${value}%`,
+          callback: (value: number | string) => `${value}%`,
           font: { size: 13 },
           color: CHART_COLORS.textSecondary,
         },
@@ -138,6 +138,7 @@ export function BacProBarrierChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const value = context.parsed.x;
             const percentage = bacProData.funnelRates[context.dataIndex].percentage;

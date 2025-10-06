@@ -5,7 +5,6 @@ import {
   Footer,
 } from '@/components/sections';
 import {
-  OrganicWavePenStroke,
   DoubleStrokePenLine,
   AnimatedPenDraw
 } from '@/components/transitions';

@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeIn, PolymorphDivider, PenLine } from '@/components/animations';
+import { FadeIn, PenLine } from '@/components/animations';
 import { Target, Calendar, Video, BookOpen, Award } from 'lucide-react';
 import Link from 'next/link';
 

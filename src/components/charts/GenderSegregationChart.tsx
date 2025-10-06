@@ -54,11 +54,13 @@ export function GenderSegregationChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const percent = context.parsed.x;
             const absolute = context.dataset.absoluteData[context.dataIndex];
             return `${context.dataset.label}: ${formatNumber(absolute)} (${percent.toFixed(1)}%)`;
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           afterBody: (tooltipItems: any[]) => {
             if (tooltipItems.length < 2) return [];
             const women = tooltipItems[0].parsed.x;
@@ -73,6 +75,7 @@ export function GenderSegregationChart() {
         display: true,
         color: '#ffffff',
         font: { size: 13, weight: 'bold' as const },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (value: number, context: any) => {
           const absolute = context.dataset.absoluteData[context.dataIndex];
           const percent = value.toFixed(1);
@@ -112,7 +115,7 @@ export function GenderSegregationChart() {
         min: 0,
         max: 100,
         ticks: {
-          callback: (value: any) => `${value}%`,
+          callback: (value: number | string) => `${value}%`,
           stepSize: 20,
           font: { size: 13 },
           color: CHART_COLORS.textSecondary,

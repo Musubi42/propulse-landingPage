@@ -4,8 +4,6 @@ import {
   SocialProofSection,
   DataVisualizationSection,
   SolutionSection,
-  FoundersSection,
-  MentorsSection,
   FinalCTASection,
   Footer,
 } from '@/components/sections';

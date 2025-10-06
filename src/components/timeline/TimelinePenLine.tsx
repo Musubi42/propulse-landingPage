@@ -80,17 +80,8 @@ export function TimelinePenLine({
   // TimelineDots uses: flex items-center justify-center gap-6 md:gap-10
   // We need to calculate positions based on dot widths + gaps
 
-  // Dot sizes (from TimelineDots)
-  const dotSize = 12; // w-12 h-12 for inactive dots (48px = 3rem)
-  const activeDotSize = 14; // w-14 h-14 for active dot (56px = 3.5rem)
-  const gap = 10; // gap-10 on desktop (40px = 2.5rem)
-
   // Total phases
   const n = totalPhases;
-
-  // Calculate total width of all dots + gaps
-  // For n dots: (n dots) + (n-1 gaps)
-  const totalDotsWidth = `calc(${n} * 3rem + ${n - 1} * 2.5rem)`;
 
   // Distance from first dot center to last dot center
   // = (n-1) * (dot_width + gap) where we use average dot width of 3rem

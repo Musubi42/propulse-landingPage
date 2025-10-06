@@ -18,6 +18,7 @@ import { ChartCard } from '@/components/ui/ChartCard';
  * Custom Tooltip for Gender Evolution Chart
  * Shows women and men percentages with gap analysis
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload || !payload.length) return null;
 

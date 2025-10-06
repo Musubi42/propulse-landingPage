@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeIn, ScaleIn, PolymorphDivider } from '@/components/animations';
+import { FadeIn, ScaleIn } from '@/components/animations';
 import { Rocket, Users, Building2, ArrowRight } from 'lucide-react';
 
 export function FinalCTASection() {

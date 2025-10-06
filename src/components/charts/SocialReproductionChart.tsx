@@ -108,6 +108,7 @@ export function SocialReproductionChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           afterBody: (tooltipItems: any[]) => {
             const csp = tooltipItems[0].dataset.label;
             const cpgePercent = tooltipItems[0].parsed.y;
@@ -229,7 +230,7 @@ export function SocialReproductionChart() {
         min: 0,
         max: 60,
         ticks: {
-          callback: (value: any) => `${value}%`,
+          callback: (value: number | string) => `${value}%`,
           stepSize: 10,
           font: { size: 13 },
           color: CHART_COLORS.textSecondary,
