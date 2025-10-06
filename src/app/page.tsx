@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import {
   HeroSection,
   SocialProofSection,
-  StatisticsSection,
+  DataVisualizationSection,
   SolutionSection,
   FoundersSection,
   MentorsSection,
@@ -27,7 +27,7 @@ export default function Home() {
         <HeroSection />
         <SolutionSection />
         <AnimatedPenDraw />
-        <StatisticsSection />
+        <DataVisualizationSection />
         <OrganicWavePenStroke />
         <SocialProofSection />
         <DoubleStrokePenLine />
