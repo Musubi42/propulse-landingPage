@@ -6,7 +6,7 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { geographicData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions, formatNumber, calculateRatio } from '@/lib/chart-config';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * Geographic Inequality Chart
@@ -60,11 +60,13 @@ export function GeographicInequalityChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           title: (tooltipItems: any[]) => {
             // Show full region name in tooltip even on mobile
             const index = tooltipItems[0].dataIndex;
             return geographicData.categories[index];
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: (context: any) => {
             const value = context.parsed.x;
             const absolute =
@@ -73,6 +75,7 @@ export function GeographicInequalityChart() {
                 : geographicData.cpge.absolute[context.dataIndex];
             return `${context.dataset.label}: ${value.toFixed(1)}% (${formatNumber(absolute)})`;
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           afterBody: (tooltipItems: any[]) => {
             const index = tooltipItems[0].dataIndex;
             const popPercent = geographicData.population.values[index];

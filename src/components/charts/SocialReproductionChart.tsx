@@ -6,7 +6,7 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { socialReproductionData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions } from '@/lib/chart-config';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * Social Reproduction Chart

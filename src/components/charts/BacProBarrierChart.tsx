@@ -6,7 +6,7 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { bacProData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions, formatNumber } from '@/lib/chart-config';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * BAC Pro Barrier Chart
@@ -47,6 +47,7 @@ export function BacProBarrierChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           title: (tooltipItems: any[]) => {
             // Show full BAC type name in tooltip even on mobile
             const index = tooltipItems[0].dataIndex;
@@ -157,6 +158,7 @@ export function BacProBarrierChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           title: (tooltipItems: any[]) => {
             // Show full BAC type name in tooltip even on mobile
             const index = tooltipItems[0].dataIndex;

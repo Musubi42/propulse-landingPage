@@ -6,7 +6,7 @@ import { InsightBox } from '@/components/ui/InsightBox';
 import { genderSegregationData } from '@/data/cpge-statistics-data';
 import { CHART_COLORS } from '@/lib/chart-colors';
 import { defaultChartOptions, formatNumber, calculateGap } from '@/lib/chart-config';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * Gender Segregation Chart
@@ -62,6 +62,7 @@ export function GenderSegregationChart() {
       tooltip: {
         ...defaultChartOptions.plugins?.tooltip,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           title: (tooltipItems: any[]) => {
             // Show full field name in tooltip even on mobile
             const index = tooltipItems[0].dataIndex;

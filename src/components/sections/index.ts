@@ -1,8 +1,6 @@
 export { Header } from './Header';
 export { HeroSection } from './HeroSection';
 export { SocialProofSection } from './SocialProofSection';
-export { StatisticsSection } from './StatisticsSection';
-export { LegacyStatisticsSection } from './LegacyStatisticsSection';
 export { DataVisualizationSection } from './DataVisualizationSection';
 export { SolutionSection } from './SolutionSection';
 export { FoundersSection } from './FoundersSection';

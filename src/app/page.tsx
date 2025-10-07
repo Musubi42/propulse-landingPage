@@ -29,9 +29,6 @@ export default function Home() {
         <OrganicWavePenStroke />
         <SocialProofSection />
         <DoubleStrokePenLine />
-        {/* <OrganicWavePenStroke /> */}
-        {/* <FoundersSection />
-        <MentorsSection /> */}
         <FinalCTASection />
       </main>
       <Footer />
