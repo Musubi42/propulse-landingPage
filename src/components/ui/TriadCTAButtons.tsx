@@ -54,7 +54,7 @@ export function TriadCTAButtons({ delay = 0.7, className = '' }: TriadCTAButtons
             <a
               key={index}
               href={button.href}
-              className="w-1/2 md:w-full group relative inline-flex flex-row md:flex-col items-center justify-between px-3 py-3 md:px-6 md:py-5 text-white font-semibold rounded-full hover:bg-[rgb(var(--lycee-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"
+              className="w-3/4 md:w-full group relative inline-flex flex-row md:flex-col items-center justify-between px-3 py-3 md:px-6 md:py-5 text-white font-semibold rounded-full hover:bg-[rgb(var(--lycee-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"
               style={{
                 backgroundColor: `rgb(${button.colorVar})`,
               }}

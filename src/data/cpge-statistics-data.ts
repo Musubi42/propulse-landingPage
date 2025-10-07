@@ -82,9 +82,10 @@ export const socialReproductionData = {
   },
   nationalDistribution: {
     cadres: 17,
-    profInter: 13, // TODO: User to confirm exact percentage
+    profInter: 26,
     employes: 24,
     ouvriers: 18,
+    agricArtisans: 10, // To be confirmed by user
   },
   metadata: {
     title: 'La reproduction sociale : 15 ans d\'inégalité stable',

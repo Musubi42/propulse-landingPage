@@ -32,6 +32,7 @@ export function BacProBarrierChart() {
         borderWidth: 0,
         borderRadius: 6,
         barThickness: 50,
+        minBarLength: isMobile ? 30 : 40, // Minimum width for tiny bars (BAC Pro)
       },
     ],
   };
@@ -143,6 +144,7 @@ export function BacProBarrierChart() {
         backgroundColor: bacProData.funnelRates.map(item => item.color),
         borderWidth: 0,
         borderRadius: 4,
+        minBarLength: isMobile ? 25 : 30, // Minimum width for BAC Pro bar
       },
     ],
   };

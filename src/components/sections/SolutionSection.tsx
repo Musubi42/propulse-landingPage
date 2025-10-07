@@ -112,8 +112,8 @@ export function SolutionSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-6xl mx-auto">
             {features.map((feature, index) => (
               <FadeIn key={feature.title} direction="up" delay={0.4 + index * 0.1}>
-                <div className="bg-background rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <div className={`inline-flex p-4 rounded-xl ${feature.bgColor} mb-6`}>
+                <div className="bg-background rounded-xl p-6 mb:p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                  <div className={`inline-flex p-4 rounded-xl ${feature.bgColor} mb-4 md:mb-6`}>
                     <feature.icon className={`w-8 h-8 ${feature.color}`} />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-3">
