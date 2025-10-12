@@ -55,51 +55,7 @@ export function HeroSection() {
             <FadeIn direction="up" delay={0.2}>
               <div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
-                  Propulse ton avenir vers les{' '}
-                  <span className="relative inline-block">
-                    <span className="relative z-10">Grandes Écoles</span>
-                    <div className="absolute -bottom-1 md:-bottom-2 left-0 w-full">
-                      {/* Desktop PenLine */}
-                      <PenLine
-                        variant="underline"
-                        width={430}
-                        height={40}
-                        strokeWidth={2}
-                        color="rgb(217, 118, 66)"
-                        delay={0.8}
-                        className="hidden xl:block"
-                      />
-                      <PenLine
-                        variant="underline"
-                        width={340}
-                        height={40}
-                        strokeWidth={2}
-                        color="rgb(217, 118, 66)"
-                        delay={0.8}
-                        className="hidden lg:block xl:hidden"
-                      />
-                      {/* Tablet PenLine */}
-                      <PenLine
-                        variant="underline"
-                        width={260}
-                        height={30}
-                        strokeWidth={2}
-                        color="rgb(217, 118, 66)"
-                        delay={0.8}
-                        className="hidden md:block lg:hidden"
-                      />
-                      {/* Mobile PenLine */}
-                      <PenLine
-                        variant="underline"
-                        width={217}
-                        height={20}
-                        strokeWidth={2}
-                        color="rgb(217, 118, 66)"
-                        delay={0.8}
-                        className="md:hidden"
-                      />
-                    </div>
-                  </span>
+                  Propulse ton avenir vers des études ambitieuses et adaptées{' '}
                 </h1>
               </div>
             </FadeIn>
@@ -107,7 +63,7 @@ export function HeroSection() {
             <FadeIn direction="up" delay={0.4}>
               <p className="text-sm md:text-base lg:text-lg text-text-secondary leading-relaxed max-w-xl">
                 Un accompagnement gratuit et à distance pour les lycéens motivés.
-                Rejoins un réseau de mentors étudiants et alumni des Grandes Écoles.
+                Rejoins un réseau de mentors étudiants et anciens étudiants avec des parcours aspirants.
               </p>
             </FadeIn>
 

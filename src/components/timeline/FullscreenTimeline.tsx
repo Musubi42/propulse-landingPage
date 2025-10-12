@@ -25,6 +25,7 @@ if (typeof window !== 'undefined') {
 interface FullscreenTimelineProps {
   phases: Phase[];
   className?: string;
+  onComplete?: () => void; // Optional callback when reaching the end
 }
 
 /**
@@ -33,13 +34,14 @@ interface FullscreenTimelineProps {
  * Creates a fullscreen horizontal timeline where vertical scroll
  * translates to horizontal phase navigation using GSAP ScrollTrigger
  */
-export function FullscreenTimeline({ phases, className }: FullscreenTimelineProps) {
+export function FullscreenTimeline({ phases, className, onComplete }: FullscreenTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [currentPhase, setCurrentPhase] = useState(0);
   const [lineProgress, setLineProgress] = useState(0); // Continuous progress for line (0-1)
   const scrollTweenRef = useRef<gsap.core.Tween | null>(null);
   const isProgrammaticScrollRef = useRef(false);
+  const hasCompletedRef = useRef(false); // Track if onComplete already called
 
   useEffect(() => {
     if (!containerRef.current || !cardsRef.current) return;
@@ -107,6 +109,24 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
     };
   }, [phases.length]);
 
+  // Auto-close when reaching the end of the timeline
+  useEffect(() => {
+    if (!onComplete || hasCompletedRef.current) return;
+
+    // Check if we're at the last phase and near the end of scroll (98%+)
+    const isAtEnd = currentPhase === phases.length - 1 && lineProgress >= 0.98;
+
+    if (isAtEnd) {
+      // Wait 2 seconds at the end before closing
+      const timer = setTimeout(() => {
+        hasCompletedRef.current = true;
+        onComplete();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentPhase, lineProgress, phases.length, onComplete]);
+
   /**
    * Navigate to specific phase on dot click
    */
@@ -144,7 +164,7 @@ export function FullscreenTimeline({ phases, className }: FullscreenTimelineProp
   return (
     <div
       ref={containerRef}
-      className={cn('fullscreen-timeline -top-[80px] relative h-screen w-full overflow-hidden', className)}
+      className={cn('fullscreen-timeline -top-[80px] relative h-screen w-full overflow-hidden bg-white', className)}
     >
       <div className="fixed top-24 md:top-24 left-1/2 -translate-x-1/2 z-40 scale-75 md:scale-90 lg:scale-100">
         <div className="relative">

@@ -11,20 +11,23 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Qui sommes-nous ? | Propulse',
+  title: 'Qui sommes-nous ? | Propulse!',
   description:
     'Découvrez l\'histoire derrière Propulse : deux étudiants qui ont vécu les inégalités d\'accès aux Grandes Écoles et qui ont décidé d\'agir. Rencontrez nos 50+ mentors bienveillants.',
   openGraph: {
-    title: 'Qui sommes-nous ? | Propulse',
+    title: 'Qui sommes-nous ? | Propulse!',
     description:
       'L\'histoire derrière Propulse : Arthur et Hugo, deux fondateurs passés par les Grandes Écoles, et nos 50+ mentors engagés.',
+  },
+  alternates: {
+    canonical: 'https://propulse-association.fr/qui-sommes-nous',
   },
 };
 
 export default function QuiSommesNousPage() {
   return (
     <>
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       {/* Founders Section */}
       <FoundersSection />
 

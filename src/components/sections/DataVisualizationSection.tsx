@@ -38,22 +38,30 @@ export function DataVisualizationSection() {
         <div className="space-y-12 max-w-6xl mx-auto">
           {/* Chart 1a: Geographic Inequality */}
           <FadeIn direction="up" delay={0.3}>
-            <GeographicInequalityChart />
+          <SocialReproductionChart />
+
+            {/* <GeographicInequalityChart /> */}
           </FadeIn>
 
           {/* Chart 1b: BAC Pro Barrier */}
           <FadeIn direction="up" delay={0.4}>
-            <BacProBarrierChart />
+          <GeographicInequalityChart />
+
+            {/* <BacProBarrierChart /> */}
           </FadeIn>
 
           {/* Chart 2: Social Reproduction */}
           <FadeIn direction="up" delay={0.5}>
-            <SocialReproductionChart />
+            <GenderSegregationChart />
+
+            {/* <SocialReproductionChart /> */}
           </FadeIn>
 
           {/* Chart 3: Gender Segregation */}
           <FadeIn direction="up" delay={0.6}>
-            <GenderSegregationChart />
+            {/* <GenderSegregationChart /> */}
+            <BacProBarrierChart />
+
           </FadeIn>
         </div>
 

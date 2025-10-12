@@ -9,23 +9,39 @@ export const schoolLogos = [
     alt: 'HEC Paris',
   },
   {
-    image: '/images/schools/essec.png',
-    alt: 'ESSEC',
+    image: '/images/schools/dauphine.jpg',
+    alt: 'Université Paris-Dauphine',
+  },
+  {
+    image: '/images/schools/polytechnique.jpg',
+    alt: 'Polytechnique',
+  },
+  {
+    image: '/images/schools/sciencespo.png',
+    alt: 'SciencesPo',
   },
   {
     image: '/images/schools/edhec.png',
     alt: 'EDHEC',
   },
   {
-    image: '/images/schools/dauphine.png',
-    alt: 'Université Paris-Dauphine',
+    image: '/images/schools/assas.jpg',
+    alt: 'ASSAS',
   },
   {
-    image: '/images/schools/emlyon.jpg',
-    alt: 'EM Lyon',
+    image: '/images/schools/centrale.png',
+    alt: 'Centrale',
   },
   {
-    image: '/images/schools/escp.png',
-    alt: 'ESCP Business School',
+    image: '/images/schools/essec.png',
+    alt: 'ESSEC',
+  },
+  {
+    image: '/images/schools/sorbonne.png',
+    alt: 'Sorbonne',
+  },
+  {
+    image: '/images/schools/mines.png',
+    alt: 'Mines',
   },
 ];

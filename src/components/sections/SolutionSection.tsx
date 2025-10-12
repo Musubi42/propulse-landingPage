@@ -1,10 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { FadeIn, PenLine } from '@/components/animations';
 import { Target, Calendar, Video, BookOpen, Award } from 'lucide-react';
-import Link from 'next/link';
+import { FullscreenProgrammeOverlay } from '@/components/overlays/FullscreenProgrammeOverlay';
+import { phases } from '@/data/phases';
 
 export function SolutionSection() {
+  const [isProgrammeOverlayOpen, setIsProgrammeOverlayOpen] = useState(false);
+
   const features = [
     {
       icon: Target,
@@ -15,8 +19,8 @@ export function SolutionSection() {
     },
     {
       icon: Calendar,
-      title: 'Programme structuré',
-      description: '6 phases clés de septembre à juin : orientation, dossiers, concours, révisions',
+      title: 'Programme adapté',
+      description: 'Un accompagnement qui s\'adapte à tes besoins : orientation, dossiers, concours, révisions',
       color: 'text-secondary',
       bgColor: 'bg-secondary/10',
     },
@@ -39,14 +43,14 @@ export function SolutionSection() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <FadeIn direction="up" delay={0.1}>
               <div className="inline-block mb-4">
-                <span className="inline-block px-4 py-2 bg-secondary/10 text-secondary font-medium rounded-full text-sm">
-                  La Solution Propulse
-                </span>
+                <h2 className="inline-block px-4 py-2 bg-secondary/10 text-secondary rounded-full">
+                  La Solution <span className="font-bold italic">Propulse!</span>
+                </h2>
               </div>
             </FadeIn>
 
             <FadeIn direction="up" delay={0.2}>
-              <h2 className="text-foreground mb-6">
+              <span className="text-foreground mb-6 font-medium text-sm md:text-lg">
                 Un accompagnement{' '}
                 <span className="relative inline-block">
                   <span className="relative z-10">complet et gratuit</span>
@@ -59,7 +63,7 @@ export function SolutionSection() {
                     /> */}
                     <PenLine
                         variant="underline"
-                        width={430}
+                        width={150}
                         height={40}
                         strokeWidth={2}
                         color="rgb(74, 107, 82)"
@@ -68,7 +72,7 @@ export function SolutionSection() {
                       />
                       <PenLine
                         variant="underline"
-                        width={404}
+                        width={150}
                         height={15}
                         strokeWidth={2}
                         color="rgb(74, 107, 82)"
@@ -78,7 +82,7 @@ export function SolutionSection() {
                       {/* Tablet PenLine */}
                       <PenLine
                         variant="underline"
-                        width={303}
+                        width={150}
                         height={15}
                         strokeWidth={2}
                         color="rgb(74, 107, 82)"
@@ -88,7 +92,7 @@ export function SolutionSection() {
                       {/* Mobile PenLine */}
                       <PenLine
                         variant="underline"
-                        width={253}
+                        width={118}
                         height={15}
                         strokeWidth={2}
                         color="rgb(74, 107, 82)"
@@ -97,15 +101,15 @@ export function SolutionSection() {
                       />
                   </div>
                 </span>
-              </h2>
+              </span>
             </FadeIn>
 
-            <FadeIn direction="up" delay={0.3}>
+            {/* <FadeIn direction="up" delay={0.3}>
               <p className="text-xl text-text-secondary leading-relaxed">
                 Propulse connecte des lycéens motivés avec des mentors étudiants et alumni
                 des Grandes Écoles, pour un mentorat sur-mesure et entièrement gratuit.
               </p>
-            </FadeIn>
+            </FadeIn> */}
           </div>
 
           {/* Features Grid */}
@@ -128,7 +132,8 @@ export function SolutionSection() {
           </div>
 
           {/* Bottom Features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+          {/* TODO: A supprimer */}
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
             <FadeIn direction="up" delay={0.8}>
               <div className="flex items-start gap-4 bg-background rounded-xl p-6 shadow-md">
                 <div className="p-3 bg-primary/10 rounded-lg flex-shrink-0">
@@ -160,13 +165,13 @@ export function SolutionSection() {
                 </div>
               </div>
             </FadeIn>
-          </div>
+          </div> */}
 
-          {/* CTA to Programme Page */}
+          {/* CTA to Programme Modal */}
           <FadeIn direction="up" delay={1}>
             <div className="text-center">
-              <Link
-                href="/programme"
+              <button
+                onClick={() => setIsProgrammeOverlayOpen(true)}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
                 Découvrir le programme complet
@@ -183,13 +188,20 @@ export function SolutionSection() {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-              </Link>
+              </button>
               <p className="text-sm text-text-tertiary mt-4">
                 6 phases, de septembre à juin
               </p>
             </div>
           </FadeIn>
         </div>
+
+        {/* Programme Fullscreen Overlay */}
+        <FullscreenProgrammeOverlay
+          open={isProgrammeOverlayOpen}
+          onOpenChange={setIsProgrammeOverlayOpen}
+          phases={phases}
+        />
       </section>
     </>
   );

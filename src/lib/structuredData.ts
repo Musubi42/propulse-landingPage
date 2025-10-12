@@ -6,7 +6,7 @@ export const organizationSchema = {
     'Association proposant un mentorat gratuit pour accompagner les lycéens vers les Grandes Écoles',
   url: 'https://propulse-association.fr',
   logo: 'https://propulse-association.fr/logo.png',
-  email: 'propulse.association@gmail.com',
+  email: 'associationpropulse@gmail.com',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'FR',

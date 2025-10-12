@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import {
   HeroSection,
-  SocialProofSection,
   DataVisualizationSection,
   SolutionSection,
   FinalCTASection,
@@ -9,13 +8,15 @@ import {
 } from '@/components/sections';
 import {
   OrganicWavePenStroke,
-  DoubleStrokePenLine,
   AnimatedPenDraw
 } from '@/components/transitions';
 
 export const metadata: Metadata = {
   title: 'Propulse | Mentorat gratuit pour lycéens vers les Grandes Écoles',
   description: 'Propulse accompagne gratuitement et à distance les lycéens motivés vers les Grandes Écoles. Rejoignez le mouvement.',
+  alternates: {
+    canonical: 'https://propulse-association.fr/',
+  },
 };
 
 export default function Home() {
@@ -23,13 +24,15 @@ export default function Home() {
     <>
       <main className="min-h-screen">
         <HeroSection />
-        <SolutionSection />
-        <AnimatedPenDraw />
-        <DataVisualizationSection />
-        <OrganicWavePenStroke />
-        <SocialProofSection />
-        <DoubleStrokePenLine />
-        <FinalCTASection />
+        <div className='bg-white'>
+          <SolutionSection />
+          <AnimatedPenDraw />
+          <DataVisualizationSection />
+          <OrganicWavePenStroke />
+          {/* <SocialProofSection /> */}
+          {/* <DoubleStrokePenLine /> */}
+          <FinalCTASection />
+        </div>
       </main>
       <Footer />
     </>

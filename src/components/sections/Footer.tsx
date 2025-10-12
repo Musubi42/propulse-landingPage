@@ -28,7 +28,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <h3 className="text-2xl font-bold mb-4">Propulse</h3>
+            <h3 className="text-2xl font-bold mb-4 italic">Propulse!</h3>
             <p className="text-foreground/80 text-sm leading-relaxed">
               L&apos;association qui propulse les lycéens vers les Grandes Écoles
             </p>
@@ -39,17 +39,12 @@ export function Footer() {
             <h4 className="font-bold mb-4">Navigation</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/#social-proof" className="text-foreground/80 hover:text-foreground transition-colors">
-                  Le mouvement
-                </Link>
-              </li>
-              <li>
                 <Link href="/programme" className="text-foreground/80 hover:text-foreground transition-colors">
                   Le programme
                 </Link>
               </li>
               <li>
-                <Link href="/#founders" className="text-foreground/80 hover:text-foreground transition-colors">
+                <Link href="/qui-sommes-nous" className="text-foreground/80 hover:text-foreground transition-colors">
                   Qui sommes-nous ?
                 </Link>
               </li>
@@ -61,17 +56,29 @@ export function Footer() {
             <h4 className="font-bold mb-4">Je suis...</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="text-foreground/80 hover:text-foreground transition-colors">
+                <a 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://forms.gle/K2m5jCYNaiknuGZ69" 
+                  className="text-foreground/80 hover:text-foreground transition-colors">
                   Lycéen
                 </a>
               </li>
               <li>
-                <a href="#" className="text-foreground/80 hover:text-foreground transition-colors">
+                <a 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://forms.gle/sqWqk59BCiP2CdLJA" 
+                  className="text-foreground/80 hover:text-foreground transition-colors">
                   Mentor
                 </a>
               </li>
               <li>
-                <a href="#" className="text-foreground/80 hover:text-foreground transition-colors">
+                <a 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://forms.gle/rZeqEeTJxT6qPKBKA" 
+                  className="text-foreground/80 hover:text-foreground transition-colors">
                   Lycée / Établissement
                 </a>
               </li>
@@ -84,11 +91,11 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href="mailto:propulse.association@gmail.com"
+                  href="mailto:associationpropulse@gmail.com"
                   className="flex items-center gap-2 text-foreground/80 hover:text-foreground transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  propulse.association@gmail.com
+                  associationpropulse@gmail.com
                 </a>
               </li>
               <li>
@@ -109,7 +116,7 @@ export function Footer() {
                   Hugo: 07 62 54 29 18
                 </a>
               </li>
-              <li className="pt-2">
+              {/* <li className="pt-2">
                 <a
                   href="https://www.linkedin.com/company/propulse-association"
                   target="_blank"
@@ -119,7 +126,7 @@ export function Footer() {
                   <Linkedin className="w-4 h-4" />
                   LinkedIn
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -128,10 +135,10 @@ export function Footer() {
         <div className="border-t border-foreground/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-foreground/60">
           <p>© {new Date().getFullYear()} Propulse Association. Tous droits réservés.</p>
           <div className="flex gap-6">
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/mentions-legales" className="hover:text-foreground transition-colors">
               Mentions légales
             </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/politique-de-confidentialite" className="hover:text-foreground transition-colors">
               Politique de confidentialité
             </Link>
           </div>

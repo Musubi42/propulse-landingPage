@@ -103,7 +103,9 @@ export function MentorsSection() {
                 dans la vie d&apos;un lycéen motivé.
               </p>
               <a
-                href="#"
+                target='_blank'
+                rel="noopener noreferrer"
+                href="https://forms.gle/sqWqk59BCiP2CdLJA"
                 className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
                 Je deviens mentor

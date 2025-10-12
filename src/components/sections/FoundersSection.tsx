@@ -80,7 +80,7 @@ export function FoundersSection() {
               <h2 className="text-foreground mb-6 text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 L&apos;histoire derrière{' '}
                 <span className="relative inline-block">
-                  <span className="relative z-10">Propulse</span>
+                  <span className="relative z-10 font-bold italic">Propulse!</span>
                   <div className="absolute -bottom-4 left-0 w-full">
                       {/* Desktop PenLine */}
                       <PenLine
@@ -128,8 +128,7 @@ export function FoundersSection() {
 
             <FadeIn direction="up" delay={0.2}>
               <p className="text-xl text-text-secondary leading-relaxed">
-                Deux étudiants qui ont vécu les inégalités d&apos;accès aux Grandes Écoles
-                et qui ont décidé d&apos;agir.
+                Deux étudiants qui souhaitent démocratiser l&apos;accès aux grandes écoles vécu les inégalités d&apos;accès aux Grandes Écoles.
               </p>
             </FadeIn>
           </div>
@@ -297,20 +296,8 @@ export function FoundersSection() {
                     ) : null}
                   </div>
 
-                  {/* Pen Line Divider */}
-                  <div className="flex justify-center my-6">
-                    <PenLine
-                      variant="horizontal-accent"
-                      width={200}
-                      height={2}
-                      color="rgb(217, 118, 66)"
-                      strokeWidth={2}
-                      delay={0.5 + index * 0.2}
-                    />
-                  </div>
-
                   {/* Expertise Tags */}
-                  <div className="mb-6">
+                  {/* <div className="mb-6">
                     <p className="text-sm font-semibold text-foreground mb-3">Expertises :</p>
                     <div className="flex flex-wrap gap-2">
                       {founder.expertise.map((skill) => (
@@ -322,7 +309,7 @@ export function FoundersSection() {
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Contact Links */}
                   <div className="flex items-center justify-center gap-4 pt-4 border-t border-border">
@@ -377,7 +364,6 @@ export function FoundersSection() {
               <p className="text-lg text-text-secondary leading-relaxed text-center">
                 Démocratiser l&apos;accès aux Grandes Écoles en comblant les inégalités
                 <strong className="text-primary"> géographiques, sociales et de genre</strong>.
-                Un lycéen motivé à la fois, un mentor bienveillant à la fois.
               </p>
             </div>
           </FadeIn>
@@ -390,10 +376,10 @@ export function FoundersSection() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a
-                  href="mailto:propulse.association@gmail.com"
+                  href="mailto:associationpropulse@gmail.com"
                   className="text-primary hover:text-primary/80 font-medium transition-colors"
                 >
-                  propulse.association@gmail.com
+                  associationpropulse@gmail.com
                 </a>
                 <span className="hidden sm:inline text-text-tertiary">•</span>
                 <div className="flex gap-4">

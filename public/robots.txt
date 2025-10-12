@@ -1,6 +1,0 @@
-# Allow all search engines to index the site
-User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://propulse-association.fr/sitemap.xml

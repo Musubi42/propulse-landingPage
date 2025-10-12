@@ -10,7 +10,7 @@ export function FinalCTASection() {
       title: 'Je suis lycéen',
       description: 'Tu vises une Grande École et tu veux être accompagné gratuitement',
       cta: 'M\'inscrire maintenant',
-      href: '#',
+      href: 'https://forms.gle/nMVM6m5W2k8rWbZz8',
       color: 'primary',
       bgColor: 'bg-primary',
       textColor: 'text-primary-foreground',
@@ -20,7 +20,7 @@ export function FinalCTASection() {
       title: 'Je deviens mentor',
       description: 'Tu es étudiant ou alumni et tu veux transmettre ton expérience',
       cta: 'Rejoindre les mentors',
-      href: '#',
+      href: 'https://forms.gle/sqWqk59BCiP2CdLJA',
       color: 'secondary',
       bgColor: 'bg-secondary',
       textColor: 'text-secondary-foreground',
@@ -30,7 +30,7 @@ export function FinalCTASection() {
       title: 'Je suis un lycée',
       description: 'Vous souhaitez proposer Propulse à vos élèves',
       cta: 'Discuter d\'un partenariat',
-      href: '#',
+      href: 'https://forms.gle/rZeqEeTJxT6qPKBKA',
       color: 'accent',
       bgColor: 'bg-accent',
       textColor: 'text-accent-foreground',
@@ -56,7 +56,7 @@ export function FinalCTASection() {
 
             <FadeIn direction="up" delay={0.2}>
               <p className="text-xl text-text-secondary leading-relaxed">
-                Que tu sois lycéen, mentor ou lycée, il y a une place pour toi dans Propulse.
+                Que vous soyez un lycéen, un mentor ou un lycée, il y a une place pour vous dans <span className="font-bold italic">Propulse!</span>
               </p>
             </FadeIn>
           </div>
@@ -81,6 +81,8 @@ export function FinalCTASection() {
 
                   {/* CTA Button */}
                   <a
+                    target="_blank"
+                    rel="noopener noreferrer"
                     href={audience.href}
                     className={`inline-flex items-center justify-center gap-2 px-6 py-4 ${audience.bgColor} ${audience.textColor} font-semibold rounded-lg hover:opacity-90 transition-all duration-300 w-full group-hover:scale-105`}
                   >

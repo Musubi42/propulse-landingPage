@@ -20,7 +20,7 @@ interface TriadCTAButtonsProps {
 export function TriadCTAButtons({ delay = 0.7, className = '' }: TriadCTAButtonsProps) {
   const buttons: CTAButton[] = [
     {
-      href: '#',
+      href: 'https://forms.gle/K2m5jCYNaiknuGZ69',
       icon: GraduationCap,
       label: 'Lycéen',
       sublabel: "Je m'inscris",
@@ -28,7 +28,7 @@ export function TriadCTAButtons({ delay = 0.7, className = '' }: TriadCTAButtons
       hoverColorVar: 'var(--lyceen-hover)',
     },
     {
-      href: '#',
+      href: 'https://forms.gle/sqWqk59BCiP2CdLJA',
       icon: Users,
       label: 'Mentor',
       sublabel: 'Je participe',
@@ -36,7 +36,7 @@ export function TriadCTAButtons({ delay = 0.7, className = '' }: TriadCTAButtons
       hoverColorVar: 'var(--mentor-hover)',
     },
     {
-      href: '#',
+      href: 'https://forms.gle/rZeqEeTJxT6qPKBKA',
       icon: Building2,
       label: 'Lycée',
       sublabel: 'Partenariat',
@@ -52,6 +52,8 @@ export function TriadCTAButtons({ delay = 0.7, className = '' }: TriadCTAButtons
           const Icon = button.icon;
           return (
             <a
+              target="_blank"
+              rel="noopener noreferrer"
               key={index}
               href={button.href}
               className="w-3/4 md:w-full group relative inline-flex flex-row md:flex-col items-center justify-between px-3 py-3 md:px-6 md:py-5 text-white font-semibold rounded-full hover:bg-[rgb(var(--lycee-hover))] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden"

@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   // Track scroll position for background transition
   useEffect(() => {
@@ -51,17 +53,24 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 w-full justify-center">
-            {navLinks.map((link) => (
-              <Link
-                style={{textDecoration: 'none'}}
-                key={link.href}
-                href={link.href}
-                className="text-base font-medium text-[#2A2A2A] hover:text-[#D97642] transition-colors relative group no-underline"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D97642] transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  style={{textDecoration: 'none'}}
+                  key={link.href}
+                  href={link.href}
+                  className={`text-base font-medium transition-colors relative group no-underline ${
+                    isActive ? 'text-[#D97642]' : 'text-[#2A2A2A] hover:text-[#D97642]'
+                  }`}
+                >
+                  {link.label}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#D97642] transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}></span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -80,16 +89,21 @@ export function Header() {
         <div className="md:hidden border-t border-[#EBE3D5] bg-[#FAF6F0]/98 backdrop-blur-sm">
           <div className="container mx-auto px-4 py-6">
             <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-base font-medium text-[#2A2A2A] hover:text-[#D97642] transition-colors py-3 border-b border-[#EBE3D5] last:border-0"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`text-base font-medium transition-colors py-3 border-b border-[#EBE3D5] last:border-0 ${
+                      isActive ? 'text-[#D97642] font-semibold' : 'text-[#2A2A2A] hover:text-[#D97642]'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
         </div>

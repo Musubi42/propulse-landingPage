@@ -53,7 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" className="bg-[#EBE3D5]">
+    {/* // <html lang="fr"> */}
       <head>
         <script
           type="application/ld+json"
