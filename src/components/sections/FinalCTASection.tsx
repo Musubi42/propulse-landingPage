@@ -28,7 +28,7 @@ export function FinalCTASection() {
     {
       icon: Building2,
       title: 'Je suis un lycée',
-      description: 'Vous souhaitez proposer Propulse à vos élèves',
+      description: 'Vous souhaitez proposer Propulse! à vos élèves',
       cta: 'Discuter d\'un partenariat',
       href: 'https://forms.gle/rZeqEeTJxT6qPKBKA',
       color: 'accent',

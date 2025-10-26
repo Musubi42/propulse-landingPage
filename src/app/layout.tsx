@@ -4,6 +4,7 @@ import "./globals.css";
 import { organizationSchema } from "@/lib/structuredData";
 import { Header } from "@/components/sections";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -72,6 +73,7 @@ export default function RootLayout({
         <Header />
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

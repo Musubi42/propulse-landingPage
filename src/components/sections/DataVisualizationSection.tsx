@@ -58,11 +58,11 @@ export function DataVisualizationSection() {
           </FadeIn>
 
           {/* Chart 3: Gender Segregation */}
-          <FadeIn direction="up" delay={0.6}>
-            {/* <GenderSegregationChart /> */}
+          {/* <FadeIn direction="up" delay={0.6}>
+            <GenderSegregationChart /> 
             <BacProBarrierChart />
 
-          </FadeIn>
+          </FadeIn> */}
         </div>
 
         {/* Call to Action */}
@@ -74,7 +74,7 @@ export function DataVisualizationSection() {
             </h3>
             <p className="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
               Le manque d&apos;information et de réseau est le principal frein.
-              C&apos;est là que <strong className="text-primary">Propulse intervient</strong>.
+              C&apos;est là que <strong className="text-primary">Propulse! intervient</strong>.
             </p>
           </div>
         </FadeIn>

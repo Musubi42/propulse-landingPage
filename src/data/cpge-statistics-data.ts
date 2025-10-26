@@ -25,7 +25,7 @@ export const geographicData = {
     total: 86941,
   },
   metadata: {
-    title: 'Concentration géographique des CPGE : la surreprésentation urbaine',
+    title: ' Inégalités géographiques ',
     subtitle: 'Comparaison entre répartition de la population et des étudiants en CPGE',
     source: 'Note Flash SIES n° 2025-03 (Février 2025) - MESR ; INSEE Recensement 2021',
     sourceUrl: 'https://www.enseignementsup-recherche.gouv.fr/fr/les-effectifs-en-classes-preparatoires-aux-grandes-ecoles-la-rentree-2024-2025-98530',
@@ -88,7 +88,7 @@ export const socialReproductionData = {
     agricArtisans: 10, // To be confirmed by user
   },
   metadata: {
-    title: 'La reproduction sociale : 15 ans d\'inégalité stable',
+    title: 'Inégalités liées aux origines socioprofessionnelles ',
     subtitle: 'Origine socioprofessionnelle des étudiants en CPGE (2007-2022) comparée à la population française',
     source: 'RERS 2024, Tableau 07_ETU/11_CPGE/01 (DEPP, SIES) ; INSEE Recensement 2021 (CSP 25-54 ans)',
     sourceUrl: 'https://rers.depp.education.fr/2024/',
@@ -119,7 +119,7 @@ export const genderSegregationData = {
   },
   totals: [54021, 19863, 13057, 86941],
   metadata: {
-    title: 'Ségrégation genrée : des filières fortement clivées',
+    title: 'Inégalités entre les hommes et les femmes',
     subtitle: 'Répartition femmes-hommes par filière CPGE (2024-2025)',
     source: 'Note Flash SIES n° 2025-03 (Février 2025) - Effectifs et évolution des étudiants en CPGE par filière et par sexe',
     sourceUrl: 'https://www.enseignementsup-recherche.gouv.fr/fr/les-effectifs-en-classes-preparatoires-aux-grandes-ecoles-la-rentree-2024-2025-98530',

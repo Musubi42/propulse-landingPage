@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { FadeIn, ScaleIn, PenLine, PenUnderline } from '@/components/animations';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -41,7 +42,8 @@ export function FoundersSection() {
       ],
       expertise: ['Mathématiques', 'Physique', 'Orientation', 'Mentorat'],
       emoji: '🎓',
-      linkedin: 'https://www.linkedin.com/in/arthur-costa',
+      image: '/images/founders/arthur-costa.jpg',
+      linkedin: 'https://www.linkedin.com/in/arthur-costa-7190071b7/',
       email: 'arthur@propulse-association.fr',
       phone: '+33769977242',
       expandable: true,
@@ -60,7 +62,8 @@ export function FoundersSection() {
       ],
       expertise: ['Stratégie', 'Management', 'Partenariats', 'Développement'],
       emoji: '🚀',
-      linkedin: 'https://www.linkedin.com/in/hugo-nicaise',
+      image: '/images/founders/hugo-nicaise.jpg',
+      linkedin: 'https://www.linkedin.com/in/hugo-nicaise-72362b170/',
       email: 'hugo@propulse-association.fr',
       phone: '+33762542918',
       expandable: true,
@@ -138,18 +141,43 @@ export function FoundersSection() {
             {founders.map((founder, index) => (
               <ScaleIn key={founder.name} delay={0.3 + index * 0.2}>
                 <div
-                  className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
+                  className="bg-[#FDFCFB] rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
                   ref={index === 0 ? arthurInViewRef : hugoInViewRef}
                 >
+                  {/* SVG Paper Texture Overlay */}
+                  <svg className="absolute inset-0 w-full h-full opacity-[0.08] pointer-events-none" aria-hidden="true">
+                    <filter id={`paper-texture-${index}`}>
+                      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="5" seed={index * 100} />
+                      <feColorMatrix values="0 0 0 0 0.7, 0 0 0 0 0.6, 0 0 0 0 0.5, 0 0 0 0.8 0" />
+                    </filter>
+                    <rect width="100%" height="100%" filter={`url(#paper-texture-${index})`} />
+                  </svg>
+
                   {/* Founder Photo */}
-                  <div className="relative mb-6">
-                    <div className="w-40 h-40 rounded-full bg-primary/10 flex items-center justify-center text-6xl mx-auto shadow-lg">
-                      {founder.emoji}
+                  <div className="relative mb-6 z-10">
+                    <div className="w-50 h-50 rounded-full bg-primary/10 flex items-center justify-center text-6xl mx-auto shadow-[0_10px_40px_rgba(217,118,66,0.15)] ring-1 ring-black/5 overflow-hidden">
+                      <Image
+                        src={founder.image}
+                        alt={`Photo de ${founder.name}`}
+                        width={180}
+                        height={180}
+                        className="object-cover w-full h-full scale-130"
+                        onError={(e) => {
+                          // Fallback to emoji if image fails to load
+                          e.currentTarget.style.display = 'none';
+                          if (e.currentTarget.nextElementSibling) {
+                            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+                          }
+                        }}
+                      />
+                      <span className="hidden text-6xl">
+                        {founder.emoji}
+                      </span>
                     </div>
                   </div>
 
                   {/* Name & Title */}
-                  <div className="text-center mb-6">
+                  <div className="text-center mb-6 relative z-10">
                     <h3 className="font-bold text-foreground text-2xl mb-2">
                       {founder.name}
                     </h3>
@@ -162,7 +190,7 @@ export function FoundersSection() {
                   </div>
 
                   {/* Story */}
-                  <div className="text-left text-text-secondary leading-relaxed text-sm mb-6">
+                  <div className="text-left text-text-secondary leading-relaxed text-sm mb-6 relative z-10">
                     {founder.expandable ? (
                       <>
                         <AnimatePresence mode="wait">
@@ -312,7 +340,7 @@ export function FoundersSection() {
                   </div> */}
 
                   {/* Contact Links */}
-                  <div className="flex items-center justify-center gap-4 pt-4 border-t border-border">
+                  <div className="flex items-center justify-center gap-4 pt-4 border-t border-border relative z-10">
                     <a
                       href={founder.linkedin}
                       target="_blank"

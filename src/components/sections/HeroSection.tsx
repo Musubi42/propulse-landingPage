@@ -63,7 +63,7 @@ export function HeroSection() {
             <FadeIn direction="up" delay={0.4}>
               <p className="text-sm md:text-base lg:text-lg text-text-secondary leading-relaxed max-w-xl">
                 Un accompagnement gratuit et à distance pour les lycéens motivés.
-                Rejoins un réseau de mentors étudiants et anciens étudiants avec des parcours aspirants.
+                Rejoins un réseau de mentors étudiants et anciens étudiants avec des parcours inspirants.
               </p>
             </FadeIn>
 
