@@ -131,7 +131,7 @@ export function FoundersSection() {
 
             <FadeIn direction="up" delay={0.2}>
               <p className="text-xl text-text-secondary leading-relaxed">
-                Deux étudiants qui souhaitent démocratiser l&apos;accès aux grandes écoles vécu les inégalités d&apos;accès aux Grandes Écoles.
+                Deux étudiants qui souhaitent démocratiser l&apos;accès aux Grandes Écoles.
               </p>
             </FadeIn>
           </div>

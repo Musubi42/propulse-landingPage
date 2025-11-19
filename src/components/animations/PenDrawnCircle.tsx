@@ -69,7 +69,7 @@ export function PenDrawnCircle({
       strokeWidth: strokeWidth,
       padding: padding,
       animationDuration: animationDuration,
-      iterations: 2, // Number of times to draw the circle (more = rougher look)
+      iterations: 3, // Number of times to draw the circle (1 = more consistent)
     });
 
     annotationRef.current = annotation;

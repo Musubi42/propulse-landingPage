@@ -19,15 +19,15 @@ export function HeroSection() {
               {/* Pen-drawn circle */}
               <PenDrawnCircle
                 size={350}
-                strokeWidth={3}
+                strokeWidth={4}
                 strokeColor="#3D3D3D"
                 animate={true}
-                animationDuration={2000}
+                animationDuration={1000}
                 padding={10}
                 className="drop-shadow-2xl"
               >
                 <Image
-                  src="/images/placeholders/hero.jpg"
+                  src="/images/placeholders/hero1.jpg"
                   alt="Mentor et lycéen travaillant ensemble - Propulse Association"
                   fill
                   className="object-cover"
@@ -94,11 +94,11 @@ export function HeroSection() {
                   strokeColor="#3D3D3D"
                   animate={true}
                   animationDuration={2000}
-                  padding={10}
+                  padding={0}
                   className="drop-shadow-2xl"
                 >
                   <Image
-                    src="/images/placeholders/hero.jpg"
+                    src="/images/placeholders/hero1.jpg"
                     alt="Mentor et lycéen travaillant ensemble - Propulse Association"
                     fill
                     className="object-cover"
